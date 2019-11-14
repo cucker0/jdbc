@@ -178,11 +178,11 @@ public class JdbcTest {
 
     /**
      * 通过的SQL更新方法
-     * 包括：insert, update, delete
+     * 包括：insert, update, delete，建表，建库等
      *
      * @param sql: sq语句
      */
-    private void update(String sql) {
+    public void update(String sql) {
         Connection conn = JdbcUtils.getConnection();
         Statement statement = null;
         try {
@@ -197,7 +197,8 @@ public class JdbcTest {
 
     @Test
     public void test3() {
-        String sql = "INSERT INTO employees (`name`, age) VALUES ('Bruny', 22);";
+//        String sql = "INSERT INTO employees (`name`, age) VALUES ('Bruny', 22);";
+        String sql = "create table tuser (id int, address varchar(64));";
         update(sql);
     }
 
