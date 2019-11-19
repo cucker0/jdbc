@@ -125,6 +125,9 @@ mysql-connector-java jar包需要事先下载好，可到https://maven.aliyun.co
 如下载适用于redhat的mysql-connector-java-8.0.18-1.el8.noarch.rpm，rpm需要解压后才能得到jar包，
 rpm2cpio mysql-connector-java-8.0.18-1.el8.noarch.rpm |cpio -div
 jar包即在解压后的./usr/share/java/mysql-connector-java.jar
+
+## postgresql
+https://jdbc.postgresql.org/
 ```
 **具体操作**  
 <details>

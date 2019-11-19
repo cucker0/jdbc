@@ -40,9 +40,40 @@ public class ResultSetTest {
             // 4. 遍历结果集
             while (rs.next()) {
                 int id = rs.getInt(1);
-                String name = rs.getNString("name");
+                String name = rs.getString("name");
                 int age = rs.getInt(3);
                 System.out.printf("id:%s, name:%s, age:%s\n", id, name, age);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.release(rs, statement, conn);
+        }
+    }
+
+    @Test
+    public void testResultSet2() {
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet rs = null;
+        try {
+            // 1. 获取数据库连接、statement
+            conn = JdbcUtils.getConnection();
+            statement = conn.createStatement();
+
+            // 2. 提供查询SQL语句
+            String sql = "select * from \"DnsRecord_record\";";
+
+            // 3. 执行SQL语句
+            rs = statement.executeQuery(sql);
+            System.out.println(rs);
+
+            // 4. 遍历结果集
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String f2 = rs.getString(2);
+                String f3 = rs.getString(3);
+                System.out.printf("id:%s, zone:%s, host:%s\n", id, f2, f3);
             }
         } catch (SQLException e) {
             e.printStackTrace();
