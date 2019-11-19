@@ -130,16 +130,16 @@ jar包即在解压后的./usr/share/java/mysql-connector-java.jar
 <details>
 <summary>具体操作</summary>
 
-1. 点击 Project Structure
-![](images/mysql-connector-java_0.png)  
+1. 点击 Project Structure  
+    ![](images/mysql-connector-java_0.png)  
 
-2. 点击Global Libraries，点击 + 按钮，选择Java
-![](images/mysql-connector-java_1.png)  
+2. 点击Global Libraries，点击 + 按钮，选择Java  
+    ![](images/mysql-connector-java_1.png)  
 
-3. 路径选择框中，选择mysql-connector jar包所在的路径，再点击OK
-![](images/mysql-connector-java_2.png)  
+3. 路径选择框中，选择mysql-connector jar包所在的路径，再点击OK  
+    ![](images/mysql-connector-java_2.png)  
 
-4. 在Global Libraries中把，右击mysql-connector-java-8.0.18，点击Add to Modules，添加到当前模块中
-![](images/mysql-connector-java_3.png)  
+4. 在Global Libraries中把，右击mysql-connector-java-8.0.18，点击Add to Modules，添加到当前模块中  
+    ![](images/mysql-connector-java_3.png)  
 </details>
 
