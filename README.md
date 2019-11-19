@@ -126,6 +126,10 @@ mysql-connector-java jar包需要事先下载好，可到https://maven.aliyun.co
 rpm2cpio mysql-connector-java-8.0.18-1.el8.noarch.rpm |cpio -div
 jar包即在解压后的./usr/share/java/mysql-connector-java.jar
 ```
+**具体操作**  
+<details>
+<summary>具体操作</summary>
+
 1. 点击 Project Structure
 ![](images/mysql-connector-java_0.png)  
 
@@ -137,5 +141,5 @@ jar包即在解压后的./usr/share/java/mysql-connector-java.jar
 
 4. 在Global Libraries中把，右击mysql-connector-java-8.0.18，点击Add to Modules，添加到当前模块中
 ![](images/mysql-connector-java_3.png)  
-
+</details>
 
