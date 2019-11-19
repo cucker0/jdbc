@@ -1,4 +1,4 @@
-package com.java.www;
+package www;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +14,7 @@ public class JdbcUtils {
             Properties properties = new Properties();
             properties.load(in);
 
-            String driverClass = properties.getProperty("driver");
+            String driverClass = properties.getProperty("driverClass");
             String jdbcUrl = properties.getProperty("jdbcUrl");
             String user = properties.getProperty("user");
             String password = properties.getProperty("password");
@@ -39,24 +39,11 @@ public class JdbcUtils {
 
     /**
      * 释放JDCB资源
+     *
+     * @param resultSet: ResultSet对象
+     * @param statement: Statement对象
+     * @param connection: 数据库连接对象
      */
-    public static void release(Statement statement, Connection connection) {
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public static void release(ResultSet resultSet, Statement statement, Connection connection) {
         if (resultSet != null) {
             try {
@@ -79,5 +66,13 @@ public class JdbcUtils {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void release(Statement statement, Connection connection) {
+        release(null, statement, connection);
+    }
+
+    public static void release(Connection connection) {
+        release(null, null, connection);
     }
 }
