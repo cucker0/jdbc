@@ -132,6 +132,9 @@ https://jdbc.postgresql.org
 
 ## jdbc oracle
 https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html
+
+## jdbc sqlserver
+https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server?view=sql-server-ver15
 ```
 **具体操作**  
 <details>
