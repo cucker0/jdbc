@@ -83,6 +83,7 @@ public class JdbcUtils {
     public static void release(Connection connection) {
         release(null, null, connection);
     }
+
     /**
      * 通过的SQL更新方法
      * 包括：insert, update, delete，建表，建库等
@@ -92,7 +93,7 @@ public class JdbcUtils {
      */
     public static int update(String sql) {
         int rows = 0; // 执行sql语句手影响的行数
-        Connection conn = JdbcUtils.getConnection();
+        Connection conn = getConnection();
         Statement statement = null;
 
         try {
