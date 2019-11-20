@@ -1,11 +1,19 @@
-package www;
+package com.java.www;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
+/**
+ * 操作JDBC的工具类
+ */
 public class JdbcUtils {
+    /**
+     * 获取数据库连接对象
+     *
+     * @return
+     */
     public static Connection getConnection() {
         Connection connection = null;
         try {
@@ -28,10 +36,10 @@ public class JdbcUtils {
             System.out.println("读取配置文件异常");
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
+            e.printStackTrace();
             System.out.println("无此数据库驱动类");
         } catch (SQLException e) {
-//            e.printStackTrace();
+            e.printStackTrace();
             System.out.println("连接数据库出现异常");
         }
         return connection;

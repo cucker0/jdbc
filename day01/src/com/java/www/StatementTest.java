@@ -1,4 +1,4 @@
-package www;
+package com.java.www;
 
 import org.junit.Test;
 
@@ -61,24 +61,27 @@ public class StatementTest {
      * 包括：insert, update, delete，建表，建库等
      *
      * @param sql: sq语句
+     * @return : 执行sql语句手影响的行数
      */
-    public void update(String sql) {
+    public int update(String sql) {
         Connection conn = JdbcUtils.getConnection();
         Statement statement = null;
+        int row_num = 0;
         try {
             statement = conn.createStatement();
-            statement.executeUpdate(sql);
+            row_num = statement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             JdbcUtils.release(statement, conn);
         }
+        return row_num;
     }
 
     @Test
     public void test1() {
-//        String sql = "INSERT INTO employees (`name`, age) VALUES ('Bruny', 22);";
-        String sql = "create table tuser (id int, address varchar(64));";
+        String sql = "INSERT INTO employees (`name`, age) VALUES ('benben', 23);";
+//        String sql = "create table tuser (id int, address varchar(64));";
         update(sql);
     }
 }

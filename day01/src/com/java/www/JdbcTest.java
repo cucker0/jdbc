@@ -1,4 +1,4 @@
-package www;
+package com.java.www;
 
 import org.junit.Test;
 
@@ -48,9 +48,9 @@ public class JdbcTest {
      */
     public Connection getConnection() throws Exception {
         // 读取jdbc.properties文件配置
-        InputStream in = getClass().getClassLoader().getResourceAsStream("jdbc.properties");
+        InputStream is = getClass().getClassLoader().getResourceAsStream("jdbc.properties");
         Properties properties = new Properties();
-        properties.load(in);
+        properties.load(is);
 
         // 通过反射加载并注册数据库驱动
         String driverClass = properties.getProperty("driverClass");

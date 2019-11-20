@@ -6,7 +6,7 @@ JDBC
 * 连接数据库技术分类
     * JDBC直接访问数据库
     * JDO技术
-    * 第三方ORM工具，如Hibernate、ibatis等
+    * 第三方O/R工具，如Hibernate、ibatis等
 **JDBC是java访问数据库的基石，JDO, Hibernate等只是更好的封装了JDBC**
 
 
@@ -121,13 +121,17 @@ java.sql.Timestamp |timestamp
 mysql-connector-java jar包需要事先下载好，可到https://maven.aliyun.com/mvn/view，然后到
 /mysql/mysql-connector-java/8.0.18/mysql-connector-java-8.0.18.jar 路径下下载该jar包。
 
-如果从mysql官网 https://dev.mysql.com/downloads/connector/j/ 下载，
+## jdbc mysql
+https://dev.mysql.com/downloads/connector/j/
 如下载适用于redhat的mysql-connector-java-8.0.18-1.el8.noarch.rpm，rpm需要解压后才能得到jar包，
 rpm2cpio mysql-connector-java-8.0.18-1.el8.noarch.rpm |cpio -div
 jar包即在解压后的./usr/share/java/mysql-connector-java.jar
 
-## postgresql
-https://jdbc.postgresql.org/
+## jdbc postgresql
+https://jdbc.postgresql.org
+
+## jdbc oracle
+https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html
 ```
 **具体操作**  
 <details>

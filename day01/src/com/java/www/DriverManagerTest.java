@@ -1,4 +1,4 @@
-package www;
+package com.java.www;
 
 import org.junit.Test;
 
