@@ -1,5 +1,7 @@
 package com.java.www;
 
+import com.mysql.cj.jdbc.ClientPreparedStatement;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -85,7 +87,7 @@ public class JdbcUtils {
     }
 
     /**
-     * 通过的SQL更新方法
+     * 通用的Statement方式SQL更新方法
      * 包括：insert, update, delete，建表，建库等
      *
      * @param sql: sq语句
@@ -103,6 +105,40 @@ public class JdbcUtils {
             e.printStackTrace();
         } finally {
             JdbcUtils.release(statement, conn);
+        }
+        return rows;
+    }
+
+    /**
+     * 通用的PreparedStatement方式更新sql语句方法
+     *
+     * @param sql: sql语句
+     * @param args: sql语句中占位符对应的可变参数，顺序需要与?占位符顺序一致
+     * @return: 执行sql语句影响的行数
+     */
+    public static int update(String sql, Object... args) {
+        int rows = 0;
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            conn = JdbcUtils.getConnection();
+            preparedStatement = conn.prepareStatement(sql);
+
+            // 设置占位符值
+            for (int i = 0; i < args.length; ++i) {
+                preparedStatement.setObject(i + 1, args[i]);
+            }
+
+            // 获取 占位符SQL语句替换后的SQL语句
+            ClientPreparedStatement cps = (ClientPreparedStatement) preparedStatement;
+            System.out.println("sql语句:\n" + cps.asSql());
+            // 执行sql语句
+            rows = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.release(preparedStatement, conn);
         }
         return rows;
     }
