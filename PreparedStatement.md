@@ -227,6 +227,50 @@ public abstract class AbstractPreparedQuery<T extends QueryBindings<?>> extends 
     public void setQueryBindings(T queryBindings) {
         this.queryBindings = queryBindings;
     }
+    
+    /**
+    * 把?点位符sql替换成参数值
+    * 
+    * @param quoteStreamsAndUnknowns
+    * @return 
+    */
+    public String asSql(boolean quoteStreamsAndUnknowns) {
+        StringBuilder buf = new StringBuilder();
+        Object batchArg = null;
+        if (this.batchCommandIndex != -1) {
+            batchArg = this.batchedArgs.get(this.batchCommandIndex);
+        }
+        
+        // 以?分隔出来的二维字节数组
+        /*
+        * 可以这么理解：String sql = "SELECT * FROM employees WHERE `name` = ? AND passwd = ?;"
+        * 以?分隔为 String[] sArr = ["SELECT * FROM employees WHERE `name` = ", " AND passwd = ", ";"]
+        * 然后把字符串转为字节数组
+        * byte[][] staticSqlStrings = ["SELECT * FROM employees WHERE `name` = ".getBytes(), " AND passwd = ".getBytes(), ";".getBytes()]
+        * */
+        byte[][] staticSqlStrings = this.parseInfo.getStaticSql();
+
+        for(int i = 0; i < this.parameterCount; ++i) {
+            buf.append(this.charEncoding != null ? StringUtils.toString(staticSqlStrings[i], this.charEncoding) : StringUtils.toString(staticSqlStrings[i]));
+            byte[] val = null;
+            if (batchArg != null && batchArg instanceof String) {
+                buf.append((String)batchArg);
+            } else {
+                byte[] val = this.batchCommandIndex == -1 ? (this.queryBindings == null ? null : this.queryBindings.getBindValues()[i].getByteValue()) : ((QueryBindings)batchArg).getBindValues()[i].getByteValue();
+                boolean isStreamParam = this.batchCommandIndex == -1 ? (this.queryBindings == null ? false : this.queryBindings.getBindValues()[i].isStream()) : ((QueryBindings)batchArg).getBindValues()[i].isStream();
+                if (val == null && !isStreamParam) {
+                    buf.append(quoteStreamsAndUnknowns ? "'** NOT SPECIFIED **'" : "** NOT SPECIFIED **");
+                } else if (isStreamParam) {
+                    buf.append(quoteStreamsAndUnknowns ? "'** STREAM DATA **'" : "** STREAM DATA **");
+                } else {
+                    buf.append(StringUtils.toString(val, this.charEncoding));
+                }
+            }
+        }
+
+        buf.append(this.charEncoding != null ? StringUtils.toString(staticSqlStrings[this.parameterCount], this.charEncoding) : StringUtils.toAsciiString(staticSqlStrings[this.parameterCount]));
+        return buf.toString();
+    }
 }
 ```
 

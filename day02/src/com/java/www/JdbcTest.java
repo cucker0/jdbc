@@ -84,7 +84,7 @@ public class JdbcTest {
             ClientPreparedStatement cps = (ClientPreparedStatement) preparedStatement;
             System.out.println("sql语句:\n" + cps.asSql());
 
-            resultSet = preparedStatement.executeQuery();
+//            resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 System.out.println("登录成功");
