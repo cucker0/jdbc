@@ -5,6 +5,8 @@ import com.mysql.cj.jdbc.ClientPreparedStatement;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -143,21 +145,54 @@ public class JdbcUtils {
         return rows;
     }
 
-    public <T> T get(Class<T> clazz, String sql, Object... args) {
+    /**
+     * 通用的查询方法：可以根据传入的Class 对象、SQL、返回 SQL 对应的记录的对象
+     *
+     * @param clazz: 要返回的对象类型
+     * @param sql: sql语句
+     * @param args: sql语句的?占位对应的参数
+     * @param <T>: 泛型类型
+     * @return: 一个泛型类型T的对象
+     */
+    public static <T> T get(Class<T> clazz, String sql, Object... args) {
         T entity = null;
         Connection conn = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
-        conn = JdbcUtils.getConnection();
-        preparedStatement = conn.prepareStatement(sql);
-        for (int i = 0; i < args.length; ++i) {
-            preparedStatement.setObject(i + 1, args[i]);
-        }
-        resultSet = preparedStatement.executeQuery();
+        try {
+            // 1. 建立连接
+            conn = JdbcUtils.getConnection();
+            preparedStatement = conn.prepareStatement(sql);
+            // 2. 给sql占位符设置值
+            for (int i = 0; i < args.length; ++i) {
+                preparedStatement.setObject(i + 1, args[i]);
+            }
+//            System.out.println(((ClientPreparedStatement) preparedStatement).asSql());
+            // 3. 获得sql执行结果集
+            resultSet = preparedStatement.executeQuery();
 
-        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            // 4. 得到ResultSetMetaData对象
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            // 5. 获取结果集第一行，遍历列值，并给新建的clazz对象的field值
+            if (resultSet.next()) {
+                entity = clazz.newInstance();
+                for (int i = 0; i < resultSetMetaData.getColumnCount(); ++i) {
+                    String columnLable = resultSetMetaData.getColumnLabel(i + 1);
+                    Object columnValue = resultSet.getObject(i + 1);
+                    // 创建clazz对应类的实例
+                    // 给上面的实例entity设置field值
+                    ReflectionUtils.setFieldValue(entity, columnLable, columnValue);
+                }
+            }
+        } catch (SQLException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.release(resultSet, preparedStatement, conn);
+        }
+
         return entity;
     }
+
 }
 

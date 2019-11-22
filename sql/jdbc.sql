@@ -26,5 +26,27 @@ UPDATE employees SET passwd = 'katy22' WHERE `name` = 'katy';
 
 SELECT * FROM employees WHERE `name` = 'katy' AND passwd = 'katy22';
 
+SELECT * FROM employees WHERE `name` = 'a'' OR passwd = ' AND passwd = ' OR ''1'' = ''1';
+
+SELECT id, `name`, age, passwd AS `password` FROM employees WHERE id = 7;
+
+
+-- 练习1
+-- 
+
+-- 创建表
+
+CREATE TABLE examstudent (
+    FlowID INT PRIMARY KEY AUTO_INCREMENT,
+    `Type` INT DEFAULT 4,
+    IDCard VARCHAR(18),
+    ExamCard VARCHAR(15),
+    StudentName VARCHAR(20),
+    Location VARCHAR(20),
+    Grade INT DEFAULT 0
+);
+
+DESC examstudent;
+
 
 
