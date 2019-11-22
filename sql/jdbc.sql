@@ -48,5 +48,13 @@ CREATE TABLE examstudent (
 
 DESC examstudent;
 
+INSERT INTO examstudent (FlowID, `Type`, IDCard, ExamCard, StudentName, Location, Grade) VALUES (?, ?, ?, ?, ?, ?, ?);
 
+SELECT * FROM examstudent;
+
+SELECT FlowID, `Type`, IDCard, ExamCard, StudentName, Location, Grade FROM examstudent WHERE ExamCard = '412824195263214584';
+
+SELECT FlowID flowID, `Type` TYPE, IDCard idCard, ExamCard examCard, StudentName studentName, Location location, Grade grade 
+FROM examstudent 
+WHERE IDCard = '412824195263214584';
 
