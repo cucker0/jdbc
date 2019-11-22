@@ -84,7 +84,7 @@ public class JdbcTest {
             ClientPreparedStatement cps = (ClientPreparedStatement) preparedStatement;
             System.out.println("sql语句:\n" + cps.asSql());
 
-//            resultSet = preparedStatement.executeQuery();
+            resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 System.out.println("登录成功");
@@ -98,6 +98,40 @@ public class JdbcTest {
         }
     }
 
+    public Employee getEmployee(String sql, Object... args) {
+        Employee employee = null;
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            conn = JdbcUtils.getConnection();
+            preparedStatement = conn.prepareStatement(sql);
+            for (int i = 0; i < args.length; ++i) {
+                preparedStatement.setObject(i + 1, args[i]);
+            }
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                employee = new Employee();
+                employee.setId(resultSet.getInt(1));
+                employee.setName(resultSet.getString(2));
+                employee.setAge(resultSet.getInt(3));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.release(resultSet, preparedStatement, conn);
+        }
+        return employee;
+    }
+
+    @Test
+    public void testGetEmployee() {
+        String sql = "SELECT id, `name`, age, passwd AS `password` FROM employees WHERE id = ?;";
+        Employee e = getEmployee(sql, 7);
+        System.out.println(e);
+    }
 
 
 }

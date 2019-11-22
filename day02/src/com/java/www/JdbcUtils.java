@@ -142,5 +142,22 @@ public class JdbcUtils {
         }
         return rows;
     }
+
+    public <T> T get(Class<T> clazz, String sql, Object... args) {
+        T entity = null;
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        conn = JdbcUtils.getConnection();
+        preparedStatement = conn.prepareStatement(sql);
+        for (int i = 0; i < args.length; ++i) {
+            preparedStatement.setObject(i + 1, args[i]);
+        }
+        resultSet = preparedStatement.executeQuery();
+
+        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        return entity;
+    }
 }
 
