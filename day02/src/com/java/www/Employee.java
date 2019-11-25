@@ -1,7 +1,7 @@
 package com.java.www;
 
 public class Employee {
-    private int id;
+    private Integer id;
     private String name;
     private int age;
     private String password;
@@ -59,6 +59,7 @@ public class Employee {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

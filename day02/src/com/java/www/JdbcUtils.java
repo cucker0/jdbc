@@ -5,8 +5,6 @@ import com.mysql.cj.jdbc.ClientPreparedStatement;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 /**

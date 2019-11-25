@@ -153,3 +153,38 @@ https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver
     ![](images/mysql-connector-java_3.png)  
 </details>
 
+
+## DAO
+```text
+Data Access Object 数据访问对象.
+
+## 定义
+访问数据信息的类，包含了对数据的CRUD(create, read, update, delete)操作，
+不包含任何业务相关的信息
+
+## 优点
+实现功能的模块化，更有利于代码的维护和升级
+
+
+```
+
+## BeanUtils
+```text
+https://commons.apache.org/proper/commons-beanutils/
+http://commons.apache.org/proper/commons-logging/
+http://commons.apache.org/collections/
+
+* compile编译依赖的jar包
+commons-collections-3.2.2.jar
+commons-logging-1.2.jar
+* 测试依赖的jar包
+commons-collections-testframework-3.2.1.jar
+junit-4.12.jar
+hamcrest-core-1.3.jar
+```
+
+
+
+
+
+

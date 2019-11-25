@@ -4,7 +4,6 @@ import com.java.www.JdbcUtils;
 import org.junit.Test;
 
 
-import javax.swing.*;
 import java.util.Scanner;
 
 

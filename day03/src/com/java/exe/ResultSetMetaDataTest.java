@@ -1,24 +1,26 @@
-package com.java.www;
+package com.java.exe;
 
 import org.junit.Test;
 
 import java.sql.*;
+import java.sql.ResultSetMetaData;
 
 /**
- * DatabaseMetaData 类
+ * ResultSetMetaData 接口
  * 描述结果集的元数据
- * 提供了许多方法用于获得数据源的各种信息
+ * 可以得到结果集中的基本信息: 结果集中有哪些列, 列名, 列的别名等
+ * 由resultSet.getMetaData()获取ResultSetMetaData对象
  *
  * ## 方法
- * getURL()：返回一个String类对象，代表数据库的URL。
- * getUserName()：返回连接当前数据库管理系统的用户名。
- * isReadOnly()：返回一个boolean值，指示数据库是否只允许读操作。
- * getDatabaseProductName()：返回数据库的产品名称。
- * getDatabaseProductVersion()：返回数据库的版本号。
- * getDriverName()：返回驱动驱动程序的名称。
- * getDriverVersion()：返回驱动程序的版本号
+ * int getColumnCount() 获取列总数
+ * String getColumnName(int column) 通过索引获取列名
+ * String getColumnLabel(int column) 通过索引获取列别名(列标示名)
+ * getColumnTypeName(int column)：检索指定列的数据库特定的类型名称。
+ * getColumnDisplaySize(int column)：指示指定列的最大标准宽度，以字符为单位。
+ * isNullable(int column)：指示指定列中的值是否可以为 null。
+ *  isAutoIncrement(int column)：指示是否自动为指定列进行编号，这样这些列仍然是只读的
  */
-public class DatabaseMetaDataTest {
+public class ResultSetMetaDataTest {
     @Test
     public void testResultSetMetaData() {
         Connection conn = null;

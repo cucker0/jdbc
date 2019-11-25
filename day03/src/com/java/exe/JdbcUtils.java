@@ -1,4 +1,4 @@
-package com.java.www;
+package com.java.exe;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -82,5 +82,9 @@ public class JdbcUtils {
 
     public static void release(Connection connection) {
         release(null, null, connection);
+    }
+
+    public static void release(ResultSet resultSet, Connection connection) {
+        release(resultSet, null, connection );
     }
 }

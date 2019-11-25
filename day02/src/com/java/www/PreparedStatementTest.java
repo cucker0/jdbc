@@ -1,6 +1,5 @@
 package com.java.www;
 
-import com.mysql.cj.ClientPreparedQuery;
 import com.mysql.cj.jdbc.ClientPreparedStatement;
 import org.junit.Test;
 

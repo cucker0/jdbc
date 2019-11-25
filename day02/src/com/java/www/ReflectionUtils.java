@@ -1,7 +1,5 @@
 package com.java.www;
 
-import oracle.sql.OracleJdbc2SQLInput;
-
 import java.lang.reflect.*;
 
 /**
