@@ -37,6 +37,9 @@ SELECT id, `name`, age, passwd AS `password` FROM employees WHERE id = 7;
 
 SELECT id, `name`, age, passwd AS `password`, profile_picture FROM employees WHERE id = 19;
 
+SELECT COUNT(*) FROM employees;
+SELECT id, `name`, age, passwd AS `password` FROM employees WHERE NAME = '马云';
+
 -- 练习1
 -- 
 
@@ -64,3 +67,30 @@ SELECT FlowID flowID, `Type` TYPE, IDCard idCard, ExamCard examCard, StudentName
 FROM examstudent 
 WHERE IDCard = '412824195263214584';
 
+
+-- 事务
+-- 
+
+CREATE TABLE account (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(32) UNIQUE,
+    balance DOUBLE
+);
+
+INSERT INTO account VALUES
+(NULL, '张无忌', 2000),
+(NULL, '赵敏', 2000);
+
+SELECT * FROM account;
+UPDATE account SET balance = balance - 500 WHERE `name` = '张无忌';
+UPDATE account SET balance = balance + 500 WHERE `name` = '赵敏';
+
+SELECT balance FROM account WHERE `name` = '赵敏';
+
+
+-- 批量插入
+-- 
+TRUNCATE TABLE employees;
+SELECT * FROM employees;
+
+INSERT INTO employees (`name`, age) VALUES ('', );
