@@ -91,6 +91,7 @@ SELECT balance FROM account WHERE `name` = '赵敏';
 -- 批量插入
 -- 
 TRUNCATE TABLE employees;
-SELECT * FROM employees;
+SELECT * FROM employees LIMIT 10;
 
 INSERT INTO employees (`name`, age) VALUES ('', );
+SELECT COUNT(*) FROM employees;
