@@ -1,4 +1,4 @@
-package com.java.www;
+package com.java.exe;
 
 import org.junit.Test;
 

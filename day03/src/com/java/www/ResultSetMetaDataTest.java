@@ -1,4 +1,4 @@
-package com.java.exe;
+package com.java.www;
 
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ public class ResultSetMetaDataTest {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            conn = JdbcUtils.getConnection();
+            conn = com.java.www.JdbcUtils.getConnection();
             String sql = "SELECT FlowID flowID, `Type` TYPE, IDCard idCard, ExamCard examCard, StudentName studentName, Location location, Grade grade " +
                     "FROM examstudent ";
             preparedStatement = conn.prepareStatement(sql);

@@ -1,4 +1,4 @@
-package com.java.www;
+package com.java.exe;
 
 import com.mysql.cj.jdbc.ClientPreparedStatement;
 import org.junit.Test;

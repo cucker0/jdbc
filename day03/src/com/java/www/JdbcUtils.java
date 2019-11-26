@@ -1,4 +1,4 @@
-package com.java.exe;
+package com.java.www;
 
 import java.io.IOException;
 import java.io.InputStream;

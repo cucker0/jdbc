@@ -1,6 +1,6 @@
 package com.java.exercise;
 
-import com.java.www.JdbcUtils;
+import com.java.exe.JdbcUtils;
 import org.junit.Test;
 
 

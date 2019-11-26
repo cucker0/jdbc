@@ -3,5 +3,5 @@ module day02 {
     requires junit;
     requires java.sql;
     // 导出包
-    exports com.java.www;
+    exports com.java.exe;
 }

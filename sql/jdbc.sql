@@ -9,7 +9,7 @@ CREATE TABLE employees (
     `name` VARCHAR(32) NOT NULL,
     age TINYINT UNSIGNED DEFAULT 1,
     passwd VARCHAR(32) DEFAULT '123456',
-    profile_picture BLOB
+    profile_picture MEDIUMBLOB
 );
 
 
@@ -35,7 +35,7 @@ SELECT * FROM employees WHERE `name` = 'a'' OR passwd = ' AND passwd = ' OR ''1'
 SELECT id, `name`, age, passwd AS `password` FROM employees WHERE id = 7;
 
 
-SELECT id, `name`, age, passwd AS `password` FROM employees WHERE id = 7;
+SELECT id, `name`, age, passwd AS `password`, profile_picture FROM employees WHERE id = 19;
 
 -- 练习1
 -- 

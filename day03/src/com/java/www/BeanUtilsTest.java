@@ -1,7 +1,7 @@
-package com.java.exe;
+package com.java.www;
 
 
-import com.java.www.Employee;
+import com.java.exe.Employee;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
 
