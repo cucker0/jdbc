@@ -184,7 +184,24 @@ hamcrest-core-1.3.jar
 ```
 
 
+## 数据库连接池
+### dbcp
+```text
+
+DBCP
+https://commons.apache.org/proper/commons-dbcp/index.html
+Apache Commons DBCP 2.7.0 for JDBC 4.2 on Java 8
 
 
+```
+
+### c3p0
+```text
+官网
+https://www.mchange.com/projects/c3p0/
+jar包下载
+https://sourceforge.net/projects/c3p0/
+
+```
 
 
