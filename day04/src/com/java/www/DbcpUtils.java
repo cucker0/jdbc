@@ -1,52 +1,48 @@
 package com.java.www;
 
-import java.io.IOException;
+import org.apache.commons.dbcp2.BasicDataSourceFactory;
+
+import javax.sql.DataSource;
 import java.io.InputStream;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 /**
- * 操作JDBC的工具类
+ * dbcp连接池工具
  *
- * 需要在src根路径下，创建jdbc.properties文件，并提供连接数据库基本信息
+ * 需要在src根路径下，创建 dbcp.properties 文件，并提供连接数据库基本信息
  * driverClass =
  * jdbcUrl =
  * user =
  * password =
  */
-public class JdbcUtils {
-    /**
-     * 获取数据库连接对象
-     *
-     * @return
-     */
+public class DbcpUtils {
+    private static DataSource dataSource = null;
+
+    static {
+        InputStream is = DbcpUtils.class.getClassLoader().getResourceAsStream("dbcp.properties");
+        Properties properties = new Properties();
+        try {
+            properties.load(is);
+            dataSource = BasicDataSourceFactory.createDataSource(properties);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 构造器
+    public DbcpUtils() {}
+
+    // 方法
     public static Connection getConnection() {
         Connection connection = null;
         try {
-            // 读取jdbc.properties文件配置
-            InputStream in = JdbcUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
-            Properties properties = new Properties();
-            properties.load(in);
-
-            String driverClass = properties.getProperty("driverClass");
-            String jdbcUrl = properties.getProperty("jdbcUrl");
-            String user = properties.getProperty("user");
-            String password = properties.getProperty("password");
-
-            // 加载数据库驱动并注册
-            Class.forName(driverClass);
-
-            // 通过 DriverManager类的getConnection 获取数据库连接对象，并返回
-            connection = DriverManager.getConnection(jdbcUrl, user, password);
-        } catch (IOException e) {
-            System.out.println("读取配置文件异常");
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("无此数据库驱动类");
+            connection = dataSource.getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("连接数据库出现异常");
         }
         return connection;
     }

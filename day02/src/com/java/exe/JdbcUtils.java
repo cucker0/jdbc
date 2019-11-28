@@ -9,6 +9,12 @@ import java.util.Properties;
 
 /**
  * 操作JDBC的工具类
+ *
+ * 需要在src根路径下，创建jdbc.properties文件，并提供连接数据库基本信息
+ * driverClass =
+ * jdbcUrl =
+ * user =
+ * password =
  */
 public class JdbcUtils {
     /**

@@ -191,8 +191,26 @@ hamcrest-core-1.3.jar
 DBCP
 https://commons.apache.org/proper/commons-dbcp/index.html
 Apache Commons DBCP 2.7.0 for JDBC 4.2 on Java 8
+commons-dbcp.jar、commons-pool.jar、commons-logging.jar
 
+```
 
+* dbcp.properties配置文件
+```text
+##DBCP连接池
+#文件放置于src根目录下
+#必填写参数
+driverClassName = com.mysql.cj.jdbc.Driver
+url= jdbc:mysql://127.0.0.1:3306/testdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
+username = root
+password = py123456
+
+#可选参数
+initialSize = 10
+maxTotal = 50
+maxIdle = 10
+minIdle = 2
+maxWaitMillis = 5000
 ```
 
 ### c3p0
@@ -202,6 +220,10 @@ https://www.mchange.com/projects/c3p0/
 jar包下载
 https://sourceforge.net/projects/c3p0/
 
+依赖jar包：c3p0.jar、commons-logging.jar
+
+配置文件示例：
+https://www.mchange.com/projects/c3p0/#configuration_files
 ```
 
 
