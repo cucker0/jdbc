@@ -19,7 +19,7 @@ public interface DAO<T> {
      * @param args: ?占位符对应的多个参数
      * @throws SQLException
      */
-    void batch(Connection connection, String sql, Object... args) throws SQLException;
+    int[] batch(Connection connection, String sql, Object[]... args) throws SQLException;
 
     /**
      * 返回查询的第一条记录的第一个列的值
