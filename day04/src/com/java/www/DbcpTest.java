@@ -82,6 +82,7 @@ public class DbcpTest {
         InputStream is = this.getClass().getClassLoader().getResourceAsStream("dbcp.properties");
         try {
             properties.load(is);
+            is.close();
             DataSource dataSource = BasicDataSourceFactory.createDataSource(properties);
             Connection conn = dataSource.getConnection();
             System.out.println(conn);

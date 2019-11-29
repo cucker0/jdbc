@@ -29,6 +29,7 @@ public class JdbcUtils {
             InputStream is = JdbcUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
             Properties properties = new Properties();
             properties.load(is);
+            is.close();
 
             String driverClass = properties.getProperty("driverClass");
             String jdbcUrl = properties.getProperty("jdbcUrl");

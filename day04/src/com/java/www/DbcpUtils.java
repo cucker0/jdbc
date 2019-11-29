@@ -27,6 +27,7 @@ public class DbcpUtils {
         Properties properties = new Properties();
         try {
             properties.load(is);
+            is.close();
             dataSource = BasicDataSourceFactory.createDataSource(properties);
         } catch (Exception e) {
             e.printStackTrace();

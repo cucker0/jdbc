@@ -18,9 +18,10 @@ public class JdbcUtils {
         Connection connection = null;
         try {
             // 读取jdbc.properties文件配置
-            InputStream in = JdbcUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
+            InputStream is = JdbcUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
             Properties properties = new Properties();
-            properties.load(in);
+            properties.load(is);
+            is.close();
 
             String driverClass = properties.getProperty("driverClass");
             String jdbcUrl = properties.getProperty("jdbcUrl");

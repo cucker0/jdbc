@@ -35,15 +35,22 @@ public class C3p0Test {
     }
 
     @Test
-    public void testC3p0WithConfigFile() {
-        DataSource dataSource = new ComboPooledDataSource("c3p0.properties");
-        try {
-            System.out.println(dataSource.getConnection());
+    public void testC3p0WithConfigFile() throws Exception {
+//        DataSource dataSource = new ComboPooledDataSource(); // default-config配置方式
+         DataSource dataSource = new ComboPooledDataSource("intergalactoApp"); // named-config配置方式，传入named-config名
+        System.out.println(dataSource.getConnection());
 
-            ComboPooledDataSource comboPooledDataSource = (ComboPooledDataSource) dataSource;
-            System.out.println(comboPooledDataSource.getMaxStatements());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        ComboPooledDataSource comboPooledDataSource = (ComboPooledDataSource) dataSource;
+        System.out.println(comboPooledDataSource);
+        System.out.println(comboPooledDataSource.getMaxStatements());
+        System.out.println(comboPooledDataSource.getConnectionPoolDataSource());
+        Connection conn = comboPooledDataSource.getConnection();
+        System.out.println(conn);
+    }
+
+    @Test
+    public void testC3p0Utils() {
+        Connection conn = C3p0Utils.getConnection();
+        System.out.println(conn);
     }
 }

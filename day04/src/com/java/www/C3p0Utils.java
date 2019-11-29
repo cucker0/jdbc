@@ -1,52 +1,36 @@
 package com.java.www;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.*;
-import java.util.Properties;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
- * 操作JDBC的工具类
+ * c3p0 连接池工具
  *
- * 需要在src根路径下，创建jdbc.properties文件，并提供连接数据库基本信息
- * driverClass =
- * jdbcUrl =
- * user =
- * password =
+ *  需要在src根路径下，创建 c3p0-config.xml或c3p0.properties文件，并提供连接数据库基本信息
  */
-public class JdbcUtils {
-    /**
-     * 获取数据库连接对象
-     *
-     * @return
-     */
+public class C3p0Utils {
+    private static DataSource dataSource = null;
+
+    static {
+//        dataSource = new ComboPooledDataSource(); // default-config配置方式
+        dataSource = new ComboPooledDataSource("intergalactoApp"); // named-config配置方式，传入named-config名
+    }
+
+    // 构造器
+    public C3p0Utils() {}
+
+    // 方法
     public static Connection getConnection() {
         Connection connection = null;
         try {
-            // 读取jdbc.properties文件配置
-            InputStream is = JdbcUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
-            Properties properties = new Properties();
-            properties.load(is);
-            is.close();
-            String driverClass = properties.getProperty("driverClass");
-            String jdbcUrl = properties.getProperty("jdbcUrl");
-            String user = properties.getProperty("user");
-            String password = properties.getProperty("password");
-
-            // 加载数据库驱动并注册
-            Class.forName(driverClass);
-
-            // 通过 DriverManager类的getConnection 获取数据库连接对象，并返回
-            connection = DriverManager.getConnection(jdbcUrl, user, password);
-        } catch (IOException e) {
-            System.out.println("读取配置文件异常");
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("无此数据库驱动类");
+            connection = dataSource.getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("连接数据库出现异常");
         }
         return connection;
     }
