@@ -13,6 +13,7 @@ public interface DAO<T> {
     /**
      * 批量处理的方法
      *
+     * 如批量更新
      * @param connection: Connection数据库连接对象
      * @param sql: 可含?占位符的sql语句
      * @param args: ?占位符对应的多个参数

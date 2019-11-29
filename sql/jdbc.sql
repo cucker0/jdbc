@@ -93,5 +93,7 @@ SELECT balance FROM account WHERE `name` = '赵敏';
 TRUNCATE TABLE employees;
 SELECT * FROM employees LIMIT 10;
 
-INSERT INTO employees (`name`, age) VALUES ('', );
+INSERT INTO employees (`name`, age, passwd) VALUES ('', );
 SELECT COUNT(*) FROM employees;
+
+INSERT INTO employees (`name`, age, passwd) VALUES ('马云', 40, 'my123');

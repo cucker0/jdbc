@@ -1,7 +1,13 @@
 <!--c3p0-config.xml配置-->
 <!--
+* 含特殊字符的处理
 <![CDATA[文本内容]]>
 表示文本内容都做普通字符处理，这样就避免了如&等特殊字符带来的异常
+
+* 另外无法在c3p0-config.xml 配置文件中配置关闭c3p0日志，
+需要例外在classpath的根路径下新建mchange-log.properties，添加如下内容
+com.mchange.v2.log.MLog = com.mchange.v2.log.FallbackMLog
+com.mchange.v2.log.FallbackMLog.DEFAULT_CUTOFF_LEVEL = OFF
 -->
 <c3p0-config>
     <!-- default-config方式，只能配置一个 -->

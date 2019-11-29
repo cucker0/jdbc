@@ -14,5 +14,7 @@
     <orderEntry type="library" name="commons-pool2-2.7.0" level="application" />
     <orderEntry type="library" name="commons-logging-1.2" level="application" />
     <orderEntry type="library" name="c3p0-0.9.5.4" level="application" />
+    <orderEntry type="library" name="commons-dbutils-1.7" level="application" />
+    <orderEntry type="module" module-name="day02" />
   </component>
 </module>

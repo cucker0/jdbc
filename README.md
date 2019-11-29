@@ -228,4 +228,10 @@ https://www.mchange.com/projects/c3p0/#configuration_files
 当c3p0.properties、c3p0-config.xml配置文件同时存在时，优先使用c3p0-config.xml配置
 ```
 
+### DbUtils
+```
+https://commons.apache.org/proper/commons-dbutils/
+依赖jar包：commons-dbutils.jar
+```
+
 

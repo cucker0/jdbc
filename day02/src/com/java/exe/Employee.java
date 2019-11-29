@@ -9,6 +9,13 @@ public class Employee {
     // 构造器
     public Employee() {}
 
+    public Employee(int id, String name, int age, String password) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.password = password;
+    }
+
     public Employee(int id, String name, int age) {
         this.id = id;
         this.name = name;

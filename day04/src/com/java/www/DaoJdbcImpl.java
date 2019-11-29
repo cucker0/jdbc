@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class DaoJdbcImpl<T> implements DAO<T> {
+
     @Override
     public void batch(Connection connection, String sql, Object... args) throws SQLException {
 
