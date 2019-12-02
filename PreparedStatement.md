@@ -12,7 +12,7 @@ PreparedStatement是如何防止SQL注入的
 '"'  "\\""
 '\''  "\\'"
 '\\'  "\\\\"
-
+'  "''"
 
 1. PreparedStatement接口
 ```java
