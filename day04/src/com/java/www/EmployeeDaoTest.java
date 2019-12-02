@@ -7,14 +7,17 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class EmployeeDaoTest {
-    DaoEmployee daoEmployee = new DaoEmployee();
+//    DaoEmployee dao = new DaoEmployee();
+    // 为了简单，直接用匿名类
+    DaoJdbcImpl<Employee> dao = new DaoJdbcImpl<>() {
+    };
 
     @Test
     public void getTheFirstRecord() {
         Connection conn = JdbcUtils.getConnection();
         String sql = "SELECT id, `name`, age, passwd AS `password` FROM employees WHERE id = ?;";
         try {
-            Employee e = daoEmployee.getTheFirstRecord(conn, sql, 6);
+            Employee e = dao.getTheFirstRecord(conn, sql, 6);
             System.out.println(e);
         } catch (SQLException ex) {
             ex.printStackTrace();
