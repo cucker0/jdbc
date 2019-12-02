@@ -97,3 +97,29 @@ INSERT INTO employees (`name`, age, passwd) VALUES ('', );
 SELECT COUNT(*) FROM employees;
 
 INSERT INTO employees (`name`, age, passwd) VALUES ('马云', 40, 'my123');
+
+DESC employees;
+
+
+-- 存储过程：输入用户名、密码，返回登录是否成功。
+DELIMITER $
+CREATE PROCEDURE login_is_valid(IN username VARCHAR(32), IN pwd VARCHAR(32), OUT valid INT)
+/*
+IN:
+    username: 用户名
+    pwd: 密码
+
+OUT:
+    valid: 登录是否有效
+            0: 无效
+            非0: 有效
+
+*/
+BEGIN
+    SET valid = 0;                     
+    SELECT COUNT(*) INTO valid
+    FROM employees
+    WHERE `name` = username AND passwd = pwd;
+    
+END$
+DELIMITER ;
