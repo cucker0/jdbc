@@ -65,6 +65,12 @@ public class TransactionTest {
                 ex.printStackTrace();
             }
         } finally {
+            // 恢复事务自动提交
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             JdbcUtils.release(conn);
         }
     }

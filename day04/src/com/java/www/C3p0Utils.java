@@ -59,6 +59,7 @@ public class C3p0Utils {
         }
         if (connection != null) {
             try {
+                // 在连接池中，此操作并非真正关闭连接，而是把连接对象归还连接池
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -103,6 +104,12 @@ public class C3p0Utils {
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -116,6 +123,12 @@ public class C3p0Utils {
             connection.rollback();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
