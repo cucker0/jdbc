@@ -260,3 +260,7 @@ INSERT  INTO `order_items`
 SELECT * FROM order_items;
 
 SELECT * FROM orders;
+
+INSERT INTO books(title,author,price,sales,stock,img_path) VALUES(?,?,?,?,?,?)
+
+SELECT SHA1('123456');
