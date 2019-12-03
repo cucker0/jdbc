@@ -13,12 +13,12 @@ import java.sql.SQLException;
  * 可以由 Connection 得到DatabaseMetaData对象
  *
  * ## 方法
- * getURL()：返回一个String类对象，代表数据库的URL。
- * getUserName()：返回连接当前数据库管理系统的用户名。
- * isReadOnly()：返回一个boolean值，指示数据库是否只允许读操作。
- * getDatabaseProductName()：返回数据库的产品名称。
- * getDatabaseProductVersion()：返回数据库的版本号。
- * getDriverName()：返回驱动驱动程序的名称。
+ * getURL()：返回一个String类对象，代表数据库的URL
+ * getUserName()：返回连接当前数据库管理系统的用户名
+ * isReadOnly()：返回一个boolean值，指示数据库是否只允许读操作
+ * getDatabaseProductName()：返回数据库的产品名称
+ * getDatabaseProductVersion()：返回数据库的版本号
+ * getDriverName()：返回驱动驱动程序的名称
  * getDriverVersion()：返回驱动程序的版本号
  */
 public class DatabaseMetaDataTest {

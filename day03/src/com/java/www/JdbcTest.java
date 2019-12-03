@@ -15,6 +15,7 @@ public class JdbcTest {
         try {
             conn = JdbcUtils.getConnection();
             String sql = "INSERT INTO employees (`name`, age) VALUES (?, ?);";
+            // 声明返回主键值
             preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setObject(1, "朱迟");
             preparedStatement.setObject(2, "30");
@@ -123,5 +124,32 @@ public class JdbcTest {
         } finally {
         }
         JdbcUtils.release(resultSet, preparedStatement, conn);
+    }
+
+    /**
+     * 更新Blob
+     */
+    @Test
+    public void testUpdateBlob() {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            conn = JdbcUtils.getConnection();
+            String sql = "UPDATE SET employees profile_picture = ? WHERE `name` = ?;";
+            preparedStatement = conn.prepareStatement(sql);
+
+            // 提供一个InputStream对象，这里用文件输入流
+            InputStream inputStream = new FileInputStream("头像2.png");
+            preparedStatement.setObject(1,inputStream);
+            preparedStatement.setObject(2,"赵茜");
+            int rows = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUtils.release(preparedStatement, conn);
+        }
     }
 }

@@ -14,7 +14,7 @@ import java.util.Arrays;
  */
 public class TransactionTest {
     /**
-     * balance表，张无忌账号转账100到赵敏账号
+     * account表，张无忌账号转账100到赵敏账号
      *
      */
     @Test
@@ -33,11 +33,11 @@ public class TransactionTest {
     }
 
     /**
-     * balance表，张无忌账号转账100到赵敏账号
+     * account表，张无忌账号转账100到赵敏账号
      * 利用事务，成功了，提交事务，失败了回滚事务
      *
      *
-     * 为方便测试，把两账号balance都设置为2000，在测试
+     * 为方便测试，把两账号balance都设置为2000，再测试
      */
     @Test
     public void testTransaction() {
@@ -76,6 +76,7 @@ public class TransactionTest {
     }
 
     /**
+     * 使用事务的SQL更新操作(INSERT、UPDATE、DELETE)
      * 用指定的Connection对象、执行指定的更新sql语句
      *
      * @param connection: 数据库Connection对象
@@ -121,6 +122,11 @@ public class TransactionTest {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             JdbcUtils.release(conn);
         }
     }

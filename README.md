@@ -109,7 +109,7 @@ ODBC(Open Database Connectivity),放式数据库连接。微软推出的Windows�
     在这个静态代码块中，会调用 DriverManager.registerDriver() 方法来注册自身的一个实例
 ```
 
-#### IntelliJ IDEA扩展数据库连接驱动
+#### IntelliJ IDEA扩展jdbc Driver以及多种数据库的jdbc Driver下载地址
 ```text
 这里以扩展全局lib为例(mysql-connector-java-8.0.18)，与扩展其他jar包方法一样。
 mysql-connector-java jar包需要事先下载好，可到https://maven.aliyun.com/mvn/view，然后到
@@ -119,7 +119,7 @@ mysql-connector-java jar包需要事先下载好，可到https://maven.aliyun.co
 https://dev.mysql.com/downloads/connector/j/
 如下载适用于redhat的mysql-connector-java-8.0.18-1.el8.noarch.rpm，rpm需要解压后才能得到jar包，
 rpm2cpio mysql-connector-java-8.0.18-1.el8.noarch.rpm |cpio -div
-jar包即在解压后的./usr/share/java/mysql-connector-java.jar
+jar包即在解压后的 ./usr/share/java/mysql-connector-java.jar
 
 ## jdbc postgresql
 https://jdbc.postgresql.org
@@ -264,6 +264,9 @@ https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver
 
 
 ## 使用PreparedStatement实现CRUD操作
+本次JDBC测试相关的表结构  
+[employees表](./sql/employees.sql)
+
 ### 访问数据库并操作
 * 数据库连接被用于向数据库服务器发送命令和 SQL 语句，并接受数据库服务器返回的结果。其实一个数据库连接就是一个Socket连接。
 
@@ -295,6 +298,7 @@ https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver
     ```
 * 对于 Java 而言，要防范 SQL 注入，只要用 PreparedStatement(从Statement扩展而来) 取代 Statement 就可以了。
 [SQL注入测试 testSQLInjection](./day02/src/com/java/exe/JdbcTest.java)
+[StatementTest](./day01/src/com/java/www/StatementTest.java)
 
 
 ### PreparedStatement的使用
@@ -302,7 +306,7 @@ https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver
 ####  PreparedStatement介绍
 * 可以通过调用 Connection 对象的 **preparedStatement(String sql)** 方法获取 PreparedStatement 对象
 
-* **PreparedStatement 接口是 Statement 的子接口，它表示一条预编译过的 SQL 语句，并对特殊字符进行转义**
+* **PreparedStatement 接口是 Statement 的子接口，它表示一条预编译过的 SQL 语句，并对特殊字符进行转义，使用StringBuild对象来容纳sql语句的每个字符**
 
     原字符 | 转换后字符串
     :--- |:---  
@@ -364,6 +368,162 @@ java.sql.Timestamp |timestamp
 ### 使用PreparedStatement实现查询操作
 [JdbcUtils get](./day02/src/com/java/exe/JdbcUtils.java)
 
+### ResultSet与ResultSetMetaData
+#### ResultSet
+* 查询需要调用PreparedStatement/Statement的 executeQuery() 方法，查询结果是一个ResultSet 对象
+
+* ResultSet 对象以逻辑表格的形式封装了执行数据库操作的结果集，ResultSet 接口由数据库厂商提供实现
+* ResultSet 返回的实际上就是一张数据表。有一个指针指向数据表的第一条记录的前面。
+* ResultSet 对象维护了一个指向当前数据行的**游标**
+    ```text
+    初始的时候，游标在第一行之前，可以通过 ResultSet 对象的 next() 方法移动到下一行。
+    调用 next()方法检测下一行是否有效。
+    若有效，该方法返回 true，且指针下移。
+    相当于Iterator对象的 hasNext() 和 next() 方法的结合体。
+    ```
+* 当指针指向一行时, 可以通过调用 getXxx(int index) 或 getXxx(int columnName) 获取每一列的值。
+    * 例如: getInt(1), getString("name")
+    * **注意：Java与数据库交互涉及到的相关Java API中的索引都从1开始**
+* ResultSet 接口的常用方法
+    * boolean next()
+    * getString()
+    * getObject()
+    * ... ...
+    
+    ![](./images/resultSet.next方法示例图)  
+[ResultSetTest](./day01/src/com/java/www/ResultSetTest.java)
+
+#### ResultSetMetaData
+* 可用于获取关于 ResultSet 对象中列的类型和属性信息的对象
+* ResultSetMetaData meta = rs.getMetaData();
+  * **getColumnName**(int column)：获取指定列的名称
+  * **getColumnLabel**(int column)：获取指定列的别名
+  * **getColumnCount**()：返回当前 ResultSet 对象中的列数。 
+  * getColumnTypeName(int column)：检索指定列的数据库特定的类型名称。 
+  * getColumnDisplaySize(int column)：指示指定列的最大标准宽度，以字符为单位。 
+  * **isNullable**(int column)：指示指定列中的值是否可以为 null。 
+  * isAutoIncrement(int column)：指示是否自动为指定列进行编号，这样这些列仍然是只读的。 
+
+**问题1：得到结果集后, 如何知道该结果集中有哪些列 ？ 列名是什么？**
+
+需要使用一个描述 ResultSet 的对象， 即 ResultSetMetaData
+
+**问题2：关于ResultSetMetaData**
+
+1. **如何获取 ResultSetMetaData**： 调用 ResultSet 的 getMetaData() 方法即可
+2. **获取 ResultSet 中有多少列**：调用 ResultSetMetaData 的 getColumnCount() 方法
+3. **获取 ResultSet 每一列的列的别名是什么**：调用 ResultSetMetaData 的getColumnLabel() 方法
+![](./images/ResultSetMetaData_ORM思想)  
+
+### DatabaseMetaData
+```text
+DatabaseMetaData 类
+是描述 数据库 的元数据对象
+可以由 Connection 得到DatabaseMetaData对象
+```
+* 方法
+    * getURL()：返回一个String类对象，代表数据库的URL
+    * getUserName()：返回连接当前数据库管理系统的用户名
+    * isReadOnly()：返回一个boolean值，指示数据库是否只允许读操作
+    * getDatabaseProductName()：返回数据库的产品名称
+    * getDatabaseProductVersion()：返回数据库的版本号
+    * getDriverName()：返回驱动驱动程序的名称
+    * getDriverVersion()：返回驱动程序的版本号
+
+[DatabaseMetaDataTest](./day03/src/com/java/www/DatabaseMetaDataTest.java)  
+
+### 获取插入数据时自动生成的主键值
+[testGetKeyValue](./day03/src/com/java/www/JdbcTest.java)
+
+
+### 操作BLOB类型字段
+#### MySQL BLOB类型
+- MySQL中，BLOB是一个二进制大型对象，是一个可以存储大量数据的容器，它能容纳不同大小的数据。
+- 插入BLOB类型的数据必须使用PreparedStatement，因为BLOB类型的数据无法使用字符串拼接写的。
+- MySQL的四种BLOB类型(除了在存储的最大信息量上不同外，他们是等同的)
+
+    类型  |最大空间
+    :--- |:---
+    TINYBLOB |255 Byte
+    BLOB |65 KB
+    MEDIUMBLOB |16 MB
+    LONGBLOB |4 GB
+- 实际使用中根据需要存入的数据大小定义不同的BLOB类型。
+- 需要注意的是：如果存储的文件过大，数据库的性能会下降。
+- 如果在指定了相关的Blob类型以后，还报错：xxx too large
+    ```text
+    那么在mysql的安装目录下，找my.cnf文件加上如下的配置参数： 
+    max_allowed_packet = 16M
+    同时注意：修改了my.ini文件之后，需要重新启动mysql服务。
+    ```
+#### 向数据表中插入BLOB数据类型
+[testInsertBlob](./day03/src/com/java/www/JdbcTest.java)
+
+#### 更新数据表中的BLOB类型字段
+[testUpdateBlob](./day03/src/com/java/www/JdbcTest.java)
+
+#### 读取BLOB类型数据
+[readBlob](./day03/src/com/java/www/JdbcTest.java)
+
+### 资源的释放
+* 释放ResultSet, Statement,Connection。
+* 数据库连接（Connection）是非常稀有的资源，用完后必须马上释放，如果Connection不能及时正确的关闭将导致系统宕机。
+Connection的使用原则是**尽量晚创建，尽量早的释放。**
+* 可以在finally中关闭，保证及时其他代码出现异常，资源也一定能被关闭。
+
+### JDBC API小结
+- 两种思想
+    - 面向接口编程的思想
+    - ORM思想(object relational mapping)
+        - 一个数据表对应一个java类
+        - 表中的一条记录对应java类的一个对象
+        - 表中的一个字段对应java类的一个属性
+    > sql是需要结合列名和表的属性名来写。注意起别名。
+
+- 两种技术
+    - JDBC结果集的元数据：ResultSetMetaData
+        - 获取列数：getColumnCount()
+        - 获取列的别名：getColumnLabel()
+    - 通过反射，创建指定类的对象，获取指定的属性并赋值
+
+
+## [章节练习](day02/src/com/java/exercise/README.md)
+
+## JDBC中处理事务
+本节相关表  
+[account表sql](sql/account.sql)
+
+- 数据一旦提交，就不可回滚。
+- 数据什么时候意味着提交？
+    - **当一个连接对象被创建时，默认情况下是自动提交事务**
+        ```text
+        每次执行一个 SQL 语句时，如果执行成功，就会向数据库自动提交，而不能回滚。
+        ```
+    - **关闭数据库连接，数据就会自动的提交** 
+        ```text
+        如果多个操作，每个操作使用的是自己单独的连接，则无法保证事务。
+        即同一个事务的多个操作必须在同一个连接下。
+        ```
+    * **JDBC程序中为了让多个 SQL 语句作为一个事务执行**
+        - 调用 Connection 对象的 **setAutoCommit(false)** 以取消自动提交事务
+        - 在所有的 SQL 语句都成功执行后，调用 **commit()** 方法提交事务
+        - 在出现异常时，调用 **rollback()** 方法回滚事务
+    > 若此时 Connection 没有被关闭，还可能被重复使用，  
+    则需要恢复其自动提交状态 setAutoCommit(true)  
+    尤其是在使用数据库连接池技术时，执行close()方法前，  
+    建议恢复自动提交状态
+
+* 不使用事务情况：张无忌账号转账100到赵敏账号
+[testNonTransaction](day03/src/com/java/www/TransactionTest.java)
+
+* 使用事务情况：张无忌账号转账100到赵敏账号
+[testTransaction](day03/src/com/java/www/TransactionTest.java)
+
+### JDBC事务隔离级别
+测试事务隔离级别  
+[testTransactionIsolationUpdate、testTransactionIsolationRead](day03/src/com/java/www/TransactionTest.java)  
+
+
 ## DAO
 ```text
 Data Access Object 数据访问对象.
@@ -374,9 +534,9 @@ Data Access Object 数据访问对象.
 
 ## 优点
 实现功能的模块化，更有利于代码的维护和升级
-
-
 ```
+
+
 
 ## BeanUtils
 ```text
