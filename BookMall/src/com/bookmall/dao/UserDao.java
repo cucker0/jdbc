@@ -15,5 +15,5 @@ public interface UserDao {
      */
     boolean checkUsername(Connection conn, User user);
 
-    void saveUser(Connection conn, User user);
+    int saveUser(Connection conn, User user);
 }

@@ -21,7 +21,7 @@ public interface BookDao {
      * @param conn: Connection数据库连接对象
      * @param book: Book对象
      */
-    void savaBook(Connection conn, Book book);
+    int saveBook(Connection conn, Book book);
 
     /**
      * 删除自定ID的book

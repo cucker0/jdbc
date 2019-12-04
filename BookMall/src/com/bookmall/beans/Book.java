@@ -4,9 +4,9 @@ public class Book {
     private Integer id;
     private String title;
     private String author;
-    private Double price;
-    private Integer sales;
-    private Integer stock;
+    private double price;
+    private int sales;
+    private int stock;
     private String imgPath;
 
     // 构造器
@@ -38,28 +38,30 @@ public class Book {
         this.author = author;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public Integer getSales() {
+    public int getSales() {
         return sales;
     }
 
-    public void setSales(Integer sales) {
+    public void setSales(int sales) {
         this.sales = sales;
     }
 
-    public Integer getStock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setStock(Integer stock) {
-        this.stock = stock;
+    public void setStock(int stock) {
+        if (stock > 0) {
+            this.stock = stock;
+        }
     }
 
     public String getImgPath() {

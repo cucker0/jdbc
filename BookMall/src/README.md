@@ -32,5 +32,5 @@ DAO练习
 ## 使用说明
 ```text
 程序入口
-./src/com/bookmall/www/Mylab.java
+./src/com/bookmall/www/Mall.java 的main方法
 ```

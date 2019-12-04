@@ -264,3 +264,12 @@ SELECT * FROM orders;
 INSERT INTO books(title,author,price,sales,stock,img_path) VALUES(?,?,?,?,?,?)
 
 SELECT SHA1('123456');
+
+SELECT MAX(sales) FROM books
+;
+SELECT * FROM books WHERE sales = (SELECT MAX(sales) FROM books)
+;
+
+UPDATE books SET stock = ? WHERE id = ?;
+
+SELECT * FROM users;

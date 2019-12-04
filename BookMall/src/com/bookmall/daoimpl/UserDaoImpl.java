@@ -24,8 +24,17 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
     }
 
     @Override
-    public void saveUser(Connection conn, User user) {
+    public int saveUser(Connection conn, User user) {
+        int rows = 0;
         String sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?);";
-        update(conn, sql, user.getUsername(), user.getPassword(), user.getEmail());
+        rows = update(conn, sql, user.getUsername(), user.getPassword(), user.getEmail());
+        return rows;
+    }
+
+    public boolean login(Connection conn, User user) {
+        User bean = null;
+        String sql = "SELECT id, username, password, email FROM users WHERE username = ? AND password = ?;";
+        bean = getBean(conn, sql, user.getUsername(), user.getPassword());
+        return bean != null;
     }
 }

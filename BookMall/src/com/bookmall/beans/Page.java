@@ -5,7 +5,7 @@ import java.util.List;
 public class Page<T> {
     private List<T> list;
     // 每页显示的条数
-    public static final int PAGE_SIZE = 10;
+    public int pageSize = 10;
     private int pageNo;
     private int totalRecord;
 
@@ -36,6 +36,14 @@ public class Page<T> {
 
     public void setTotalRecord(int totalRecord) {
         this.totalRecord = totalRecord;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
     @Override
