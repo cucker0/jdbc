@@ -95,10 +95,10 @@ INSERT  INTO `orders`(`id`,`order_time`,`total_count`,`total_amount`,`state`,`us
 
 --
 INSERT  INTO `order_items`
-(`id`,`count`,`amount`,`title`,`author`,`price`,`img_path`,`order_id`) VALUES
-(1,1,27.20,'解忧杂货店','东野圭吾',27.20,'static/img/default.jpg','15275760194821'),
-(2,1,23.00,'边城','沈从文',23.00,'static/img/default.jpg','15275760194821'),
-(3,1,44.50,'中国哲学史','冯友兰',44.50,'static/img/default.jpg','15275760194821'),
-(4,1,19.33,'忽然七日',' 劳伦',19.33,'static/img/default.jpg','15275760194821'),
-(5,1,27.20,'解忧杂货店','东野圭吾',27.20,'static/img/default.jpg','15294258455691'),
-(6,1,23.00,'边城','沈从文',23.00,'static/img/default.jpg','15294258455691');
+(`count`,`amount`,`title`,`author`,`price`,`img_path`,`order_id`) VALUES
+(1,27.20,'解忧杂货店','东野圭吾',27.20,'static/img/default.jpg','15275760194821'),
+(1,23.00,'边城','沈从文',23.00,'static/img/default.jpg','15275760194821'),
+(1,44.50,'中国哲学史','冯友兰',44.50,'static/img/default.jpg','15275760194821'),
+(1,19.33,'忽然七日',' 劳伦',19.33,'static/img/default.jpg','15275760194821'),
+(1,27.20,'解忧杂货店','东野圭吾',27.20,'static/img/default.jpg','15294258455691'),
+(1,23.00,'边城','沈从文',23.00,'static/img/default.jpg','15294258455691');

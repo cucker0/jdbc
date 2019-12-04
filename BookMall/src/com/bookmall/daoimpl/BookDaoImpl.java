@@ -4,7 +4,9 @@ import com.bookmall.beans.Book;
 import com.bookmall.beans.Page;
 import com.bookmall.dao.BaseDao;
 import com.bookmall.dao.BookDao;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.util.List;
 
@@ -19,13 +21,13 @@ public class BookDaoImpl extends BaseDao<Book> implements BookDao {
     }
 
     @Override
-    public int saveBook(Connection conn, Book book) {
-        int rows = 0;
+    public BigInteger saveBook(Connection conn, Book book) {
+        BigInteger auto_increment_id = null;
         String sql = "INSERT INTO books (title, author, price, sales, stock, img_path) VALUES (?, ?, ?, ?, ?, ?);";
         // 调用BaseDao类中的update方法
-        rows = update(conn, sql, book.getTitle(), book.getAuthor(), book.getPrice(),
+        auto_increment_id = insert(conn, sql, book.getTitle(), book.getAuthor(), book.getPrice(),
                 book.getSales(), book.getStock(), book.getImgPath());
-        return rows;
+        return auto_increment_id;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class BookDaoImpl extends BaseDao<Book> implements BookDao {
     @Override
     public Book getBookById(Connection conn, String bookId) {
         Book book = null;
-        String sql = "SELECT title, author, price, sales, stock, img_path FROM books WHERE id = ?;";
+        String sql = "SELECT title, author, price, sales, stock, img_path imgPath FROM books WHERE id = ?;";
         book = getBean(conn, sql);
         return book;
     }
@@ -98,6 +100,6 @@ public class BookDaoImpl extends BaseDao<Book> implements BookDao {
      */
     public void modifyBookStockById(Connection conn, Integer bookId, int stock) {
         String sql = "UPDATE books SET stock = ? WHERE id = ?;";
-        update(conn, sql, bookId, stock);
+        update(conn, sql, stock, bookId);
     }
 }

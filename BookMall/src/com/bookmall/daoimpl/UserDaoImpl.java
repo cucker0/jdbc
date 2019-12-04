@@ -3,7 +3,9 @@ package com.bookmall.daoimpl;
 import com.bookmall.beans.User;
 import com.bookmall.dao.BaseDao;
 import com.bookmall.dao.UserDao;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 
 public class UserDaoImpl extends BaseDao<User> implements UserDao {
@@ -24,11 +26,11 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
     }
 
     @Override
-    public int saveUser(Connection conn, User user) {
-        int rows = 0;
+    public BigInteger saveUser(Connection conn, User user) {
+        BigInteger auto_increment_id = null;
         String sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?);";
-        rows = update(conn, sql, user.getUsername(), user.getPassword(), user.getEmail());
-        return rows;
+        auto_increment_id = insert(conn, sql, user.getUsername(), user.getPassword(), user.getEmail());
+        return auto_increment_id;
     }
 
     public boolean login(Connection conn, User user) {

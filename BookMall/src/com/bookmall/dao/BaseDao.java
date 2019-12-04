@@ -7,8 +7,10 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -50,6 +52,24 @@ public abstract class BaseDao<T> {
             e.printStackTrace();
         }
         return rows;
+    }
+
+    /**
+     * 执行插入记录，并获取自增ID值
+     *
+     * @param conn: Connection连接对象
+     * @param sql: 可含?占位符的SQL语句
+     * @param params: ?占位符对应的可变参数
+     * @return: 自增ID值
+     */
+    public BigInteger insert(Connection conn, String sql, Object... params) {
+        BigInteger auto_increment_id = null;
+        try {
+            auto_increment_id = queryRunner.insert(conn, sql, new ScalarHandler<>(), params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return auto_increment_id;
     }
 
     /**

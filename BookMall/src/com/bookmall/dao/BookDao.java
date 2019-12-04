@@ -3,6 +3,7 @@ package com.bookmall.dao;
 import com.bookmall.beans.Book;
 import com.bookmall.beans.Page;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface BookDao {
      * @param conn: Connection数据库连接对象
      * @param book: Book对象
      */
-    int saveBook(Connection conn, Book book);
+    BigInteger saveBook(Connection conn, Book book);
 
     /**
      * 删除自定ID的book

@@ -2,12 +2,17 @@ package com.bookmall.www;
 
 import com.bookmall.Utils.JdbcUtils;
 import com.bookmall.beans.Book;
+import com.bookmall.beans.Order;
+import com.bookmall.beans.OrderItem;
 import com.bookmall.beans.User;
 import com.bookmall.daoimpl.BookDaoImpl;
+import com.bookmall.daoimpl.OrderDaoImpl;
+import com.bookmall.daoimpl.OrderItemDaoImpl;
 import com.bookmall.daoimpl.UserDaoImpl;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.util.List;
@@ -17,6 +22,8 @@ public class Mall {
     private static Scanner sc = new Scanner(System.in);
     private static UserDaoImpl userDao = new UserDaoImpl();
     private static BookDaoImpl bookDao = new BookDaoImpl();
+    private static OrderDaoImpl orderDao = new OrderDaoImpl();
+    private static OrderItemDaoImpl orderItemDao = new OrderItemDaoImpl();
     private static Connection conn = JdbcUtils.getConnection();
 
     @Test
@@ -46,8 +53,8 @@ public class Mall {
             user.setPassword(password);
             user.setEmail(email);
 
-            int rows = userDao.saveUser(conn, user);
-            if (rows != 0) {
+            BigInteger id = userDao.saveUser(conn, user);
+            if (id != null) {
                 System.out.println("用户添加成功");
             }
         }
@@ -74,9 +81,14 @@ public class Mall {
             book.setTitle(title);
             book.setAuthor(author);
             book.setPrice(price);
+            book.setSales(0);
             book.setStock(stock);
             book.setImgPath(imgPath);
-            bookDao.saveBook(conn, book);
+            BigInteger id = bookDao.saveBook(conn, book);
+            if (id != null) {
+                System.out.println(id);
+                System.out.println("图书添加成功");
+            }
         }
     }
 
@@ -130,6 +142,26 @@ public class Mall {
         bookDao.modifyBookStockById(conn, id, stock);
     }
 
+    public static void getOrderByUserId() {
+        System.out.println("\n查询用户订单\n");
+        System.out.println("输入User ID：");
+        String userId = sc.next();
+        Order order = orderDao.getOrderByUserId(conn, userId);
+        System.out.println("订单：");
+        System.out.println(order);
+        OrderItem orderItem = orderItemDao.getOrderItemByOrderId(conn, order);
+        System.out.println("订单详情：");
+        System.out.println(orderItem);
+    }
+
+    public static void deleteOrder() {
+        System.out.println("\n删除用户订单\n");
+        System.out.println("订单ID：");
+        String orderId = sc.next();
+        orderItemDao.deleteOrderItemByOrderId(conn, orderId);
+        orderDao.deleteOrderById(conn, orderId);
+    }
+
     public static void main(String[] args) {
         String options = "\n\n== 书屋商城 ==\n\n" +
                 "a. 添加用户\n" +
@@ -138,35 +170,47 @@ public class Mall {
                 "d. 查询所有图书\n" +
                 "e. 查询最畅销图书\n" +
                 "f. 修改图书库存\n" +
+                "g. 查询用户订单\n" +
+                "h. 删除用户订单\n" +
                 "q. 退出系统\n\n" +
                 "选择项：";
         while (true) {
             System.out.println(options);
             String option = sc.next().toLowerCase();
-            switch (option) {
-                case "a":
-                    addUser();
-                    break;
-                case "b":
-                    addBook();
-                    break;
-                case "c":
-                    login();
-                    break;
-                case "d":
-                    getAllBooks();
-                    break;
-                case "e":
-                    getBestSellingBook();
-                    break;
-                case "f":
-                    modifyBookStock();
-                    break;
-                case "q":
-                    return;
-                default:
-                    System.out.println("无此选项");
-                    break;
+            try {
+                switch (option) {
+                    case "a":
+                        addUser();
+                        break;
+                    case "b":
+                        addBook();
+                        break;
+                    case "c":
+                        login();
+                        break;
+                    case "d":
+                        getAllBooks();
+                        break;
+                    case "e":
+                        getBestSellingBook();
+                        break;
+                    case "f":
+                        modifyBookStock();
+                        break;
+                    case "g":
+                        getOrderByUserId();
+                        break;
+                    case "h":
+                        deleteOrder();
+                        break;
+                    case "q":
+                        return;
+                    default:
+                        System.out.println("无此选项");
+                        break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

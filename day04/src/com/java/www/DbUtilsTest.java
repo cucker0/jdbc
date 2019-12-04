@@ -11,9 +11,11 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +52,25 @@ import java.util.Map;
  *      使用该类可以把 SQL 语句外置化到一个资源文件中. 以提供更好的解耦
  */
 public class DbUtilsTest {
+    /**
+     * 测试QueryRunner类的 insert方法
+     *
+     * 执行INSERT SQL语句，可获取主键值
+     */
+    @Test
+    public void testQueryRunnerInsert() {
+        QueryRunner queryRunner = new QueryRunner();
+        Connection conn = JdbcUtils.getConnection();
+        String sql = "INSERT INTO employees (`name`, age, passwd) VALUES (?, ?, ?);";
+        try {
+            // 获取插入记录是的自增主键值
+            BigInteger id = queryRunner.insert(conn, sql, new ScalarHandler<>(), "Karry", 22, "kr123");
+            System.out.println(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 测试QueryRunner类的 update方法
      *

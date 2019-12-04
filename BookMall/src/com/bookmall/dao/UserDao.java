@@ -2,6 +2,7 @@ package com.bookmall.dao;
 
 import com.bookmall.beans.User;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 
 public interface UserDao {
@@ -15,5 +16,5 @@ public interface UserDao {
      */
     boolean checkUsername(Connection conn, User user);
 
-    int saveUser(Connection conn, User user);
+    BigInteger saveUser(Connection conn, User user);
 }

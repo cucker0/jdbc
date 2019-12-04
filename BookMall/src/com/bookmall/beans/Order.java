@@ -1,5 +1,7 @@
 package com.bookmall.beans;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Order {
@@ -7,14 +9,13 @@ public class Order {
     private LocalDateTime orderTime;
     private int totalCount;
     private double totalAmount;
-    private int state;
-    private int userId;
+    private Integer state;
+    private Integer userId;
 
     // 构造器
     public Order() {}
 
     // 方法
-
     public String getId() {
         return id;
     }
@@ -27,8 +28,11 @@ public class Order {
         return orderTime;
     }
 
-    public void setOrderTime(LocalDateTime orderTime) {
-        this.orderTime = orderTime;
+    public void setOrderTime(Object orderTime) {
+//        this.orderTime = orderTime;
+        System.out.println("====>");
+        Timestamp tp = (Timestamp) orderTime;
+        this.orderTime = tp.toLocalDateTime();
     }
 
     public int getTotalCount() {
@@ -47,19 +51,19 @@ public class Order {
         this.totalAmount = totalAmount;
     }
 
-    public int getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
