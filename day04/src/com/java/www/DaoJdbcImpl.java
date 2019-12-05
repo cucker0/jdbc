@@ -13,6 +13,9 @@ import java.util.List;
 /**
  * 使用QueryRunner 提供具体的实现
  *
+ * 使用时，闯将使用匿名类实例，如：
+ * DaoJdbcImpl<Employee> dao = new DaoJdbcImpl<>() {};
+ *
  * @param <T>: 子类需传入的泛型类型
  */
 public class DaoJdbcImpl<T> implements DAO<T> {

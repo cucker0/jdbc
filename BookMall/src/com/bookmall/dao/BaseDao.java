@@ -32,7 +32,11 @@ public abstract class BaseDao<T> {
         // 这个方法会返回一个Type的数组
         Type[] types = parameterizedType.getActualTypeArguments();
         // 获取具体的泛型的类型·
-        this.type = (Class<T>) types[0];
+        if (types.length > 0) {
+            this.type = (Class<T>) types[0];
+        } else {
+            this.type = null;
+        }
     }
 
     /**

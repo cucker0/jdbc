@@ -206,7 +206,7 @@ public class DbUtilsTest {
      * QueryLoader
      *
      * 可以用来加载存放着 SQL 语句的资源文件.
-     * 使用该类可以把 SQL 语句外置化到一个资源文件中. 以提供更好的解耦
+     * 使用该类可以把 SQL 语句存放到一个资源文件中. 以提供更好的解耦
      */
     @Test
     public void testQueryLoader() {

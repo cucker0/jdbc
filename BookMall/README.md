@@ -1,17 +1,17 @@
-DAO练习
+BookMall书城项目
 ==
 
 ## 题目
-1. 创建数据库test01_bookstore
+1. 创建数据库 bookmall
 1. 创建如下表格
     1. 图书表books
-    ![books](../../images/dao_exe_01.png)
+    ![books](../images/dao_exe_01.png)
     2. 用户表users
-    ![books](../../images/dao_exe_02.png)
+    ![books](../images/dao_exe_02.png)
     3. 订单表orders
-    ![orders](../../images/dao_exe_03.png)
+    ![orders](../images/dao_exe_03.png)
     4. 订单明细表order_items
-    ![order_items](../../images/dao_exe_04.png)
+    ![order_items](../images/dao_exe_04.png)
 1. 使用sql语句在命令行或SQLyog中添加一些模拟数据
 1. 使用JDBC实现往用户表中添加1个用户，注意密码存储使用mysql的sha1()函数进行加密
     ```text
@@ -31,6 +31,8 @@ DAO练习
 
 ## 使用说明
 ```text
+练习DAO的使用
+
 程序入口
 ./src/com/bookmall/www/Mall.java 的main方法
 ```

@@ -105,6 +105,8 @@ public class BatchInsertTest {
     }
 
     /**
+     * 该方法效率是这几种方法中最高的
+     *
      * PreparedStatement
      * preparedStatement.addBatch()
      *
