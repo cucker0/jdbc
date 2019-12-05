@@ -13,7 +13,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 
 import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Scanner;
@@ -156,8 +155,16 @@ public class Mall {
 
     public static void deleteOrder() {
         System.out.println("\n删除用户订单\n");
-        System.out.println("订单ID：");
+        System.out.println("订单ID（q退出）：");
         String orderId = sc.next();
+        if (orderId.equalsIgnoreCase("q")) {
+            return;
+        }
+        Order order = orderDao.getOrderById(conn, orderId);
+        if (order == null) {
+            System.out.println("此订单不存在");
+            return;
+        }
         orderItemDao.deleteOrderItemByOrderId(conn, orderId);
         orderDao.deleteOrderById(conn, orderId);
     }

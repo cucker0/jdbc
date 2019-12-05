@@ -1,12 +1,10 @@
 package com.bookmall.beans;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 public class Order {
     private String id;
-    private LocalDateTime orderTime;
+    private Timestamp orderTime; // 或String类型，都可与sql中的datetime对应
     private int totalCount;
     private double totalAmount;
     private Integer state;
@@ -24,15 +22,12 @@ public class Order {
         this.id = id;
     }
 
-    public LocalDateTime getOrderTime() {
+    public Timestamp getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(Object orderTime) {
-//        this.orderTime = orderTime;
-        System.out.println("====>");
-        Timestamp tp = (Timestamp) orderTime;
-        this.orderTime = tp.toLocalDateTime();
+    public void setOrderTime(Timestamp orderTime) {
+        this.orderTime = orderTime;
     }
 
     public int getTotalCount() {

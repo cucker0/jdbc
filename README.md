@@ -355,11 +355,11 @@ int |int
 long |bigint 
 float |float(M,D)
 double |double(M,D)
-String |char, varchar, longvarchar 
+String |char, varchar, longvarchar, datetime
 byte array |binary, var binary 
 java.sql.Date |date 
 java.sql.Time |time 
-java.sql.Datetime |datetime 
+java.sql.Timestamp, String |datetime 
 java.sql.Timestamp |timestamp 
 
 ### 使用PreparedStatement实现增、删、改操作
