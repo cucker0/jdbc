@@ -276,6 +276,9 @@ SELECT * FROM users;
 
 SELECT id, order_time, total_count, total_amount, state, user_id FROM orders WHERE id = ?;
 SELECT * FROM orders;
+SELECT * FROM order_items;
 
 INSERT INTO (order_time, total_count, total_amount, state, user_id) VALUES (?, ?, ?, ?, ?, ?);
 SELECT NOW();
+
+SELECT `id`, `count`,`amount`,`title`,`author`,`price`,`img_path`,`order_id` FROM order_items WHERE id = 1;
