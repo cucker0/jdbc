@@ -1,6 +1,105 @@
 JDBC
 ==
 
+# Table Of Contents
+<details>
+<summary>JDBC概述</summary>
+
+* [JDBC概述](#JDBC概述)
+    * [java中的数据存储技术](#java中的数据存储技术)
+    * [JDBC概念](#JDBC概念)
+    * [JDBC体系结构](#JDBC体系结构)
+    * [JDBC驱动程序四种类型](#JDBC驱动程序四种类型)
+    * [JDBC编程步骤](#JDBC编程步骤)
+</details>
+
+<details>
+<summary>获取数据库连接</summary>
+
+* [获取数据库连接](#获取数据库连接)
+    * [JDBC API](#JDBC-API)
+    * [要素1：Driver接口实现类](#要素1Driver接口实现类)
+        * [IntelliJ IDEA扩展jdbc Driver以及多种数据库的jdbc Driver下载地址](#IntelliJ-IDEA扩展jdbc-Driver以及多种数据库的jdbc-Driver下载地址)
+    * [要素2：URL](#要素2URL)
+    * [要素3：用户名和密码](#要素3用户名和密码)
+    * [JDBC连接数据库示例](#JDBC连接数据库示例)
+</details>
+
+<details>
+<summary>使用PreparedStatement实现CRUD操作</summary>
+
+* [使用PreparedStatement实现CRUD操作](#使用PreparedStatement实现CRUD操作)
+    * [访问数据库并操作](#访问数据库并操作)
+    * [使用Statement操作数据表及其弊端](#使用Statement操作数据表及其弊端)
+    * [PreparedStatement的使用](#PreparedStatement的使用)
+        * [PreparedStatement介绍](#PreparedStatement介绍)
+        * [PreparedStatement vs Statement](#PreparedStatement-vs-Statement)
+        * [java与数据库之间的数据类型转换表](#java与数据库之间的数据类型转换表)
+    * [使用PreparedStatement实现增、删、改操作](#使用PreparedStatement实现增删改操作)
+    * [使用PreparedStatement实现查询操作](#使用PreparedStatement实现查询操作)
+    * [ResultSet与ResultSetMetaData](#ResultSet与ResultSetMetaData)
+        * [ResultSet](#ResultSet)
+        * [ResultSetMetaData](#ResultSetMetaData)
+    * [DatabaseMetaData](#DatabaseMetaData)
+    * [获取插入数据时自动生成的主键值](#获取插入数据时自动生成的主键值)
+    * [资源的释放](#资源的释放)
+    * [JDBC API小结](#JDBC-API小结)
+</details>
+
+[章节练习](day02/src/com/java/exercise/README.md)
+
+<details>
+<summary>操作BLOB类型字段</summary>
+
+* [操作BLOB类型字段](#操作BLOB类型字段)
+    * [MySQL BLOB类型](#MySQL-BLOB类型)
+    * [向数据表中插入BLOB数据类型](#向数据表中插入BLOB数据类型)
+    * [更新数据表中的BLOB类型字段](#更新数据表中的BLOB类型字段)
+    * [读取BLOB类型数据](#读取BLOB类型数据)
+</details>
+
+
+
+* [JDBC中处理事务](#JDBC中处理事务)
+    * [JDBC事务隔离级别](#JDBC事务隔离级别)
+* [批量插入](#批量插入)
+    * [批量执行SQL语句](#批量执行SQL语句)
+* [DAO](#DAO)
+    * [DAO项目示例：BookMall](#DAO项目示例BookMall)
+* [BeanUtils](#BeanUtils)
+
+<details>
+<summary>DbUtils实现CRUD操作</summary>
+
+* [DbUtils实现CRUD操作](#DbUtils实现CRUD操作)
+    * [DbUtils简介](#DbUtils简介)
+    * [DbUtils API主要方法](#DbUtils-API主要方法)
+    * [QueryRunner类](#QueryRunner类)
+    * [ResultSetHandler接口及实现类](#ResultSetHandler接口及实现类)
+    * [QueryLoader](#QueryLoader)
+</details>    
+
+<details>
+<summary>数据库连接池</summary>
+
+* [数据库连接池](#数据库连接池)
+    * [JDBC数据库连接池的必要性](#JDBC数据库连接池的必要性)
+    * [数据库连接池技术](#数据库连接池技术)
+    * [多种开源的数据库连接池](#多种开源的数据库连接池)
+    * [DBCP数据库连接池](#DBCP数据库连接池)
+        * [DBCP示例](#DBCP示例)
+    * [c3p0数据库连接池](#c3p0数据库连接池)
+        * [c3p0 properties风格配置](#c3p0-properties风格配置)
+        * [c3p0 xml风格配置](#c3p0-xml风格配置)
+        * [c3p0示例](#c3p0示例)
+    * [Druid数据库连接池](#Druid数据库连接池)
+        * [Druid示例](#Druid示例)
+</details>
+
+* [使用JDBC调用数据库中的存储过程、函数](#使用JDBC调用数据库中的存储过程函数)
+    * [JDBC调用存储过程](#JDBC调用存储过程)
+    * [JDBC调用函数](#JDBC调用函数)
+
 
 ## JDBC概述
 ### java中的数据存储技术
@@ -591,9 +690,9 @@ http://commons.apache.org/collections/
 ```
 [Apache Commons BeanUtils](day03/src/com/java/www/BeanUtilsTest.java)  
 
-[自定义Bean反射工具](day02/src/com/java/exe/ReflectionUtils.java)
+[自定义反射工具](day02/src/com/java/exe/ReflectionUtils.java)
 
-## DbUtils
+## DbUtils实现CRUD操作
 ```
 https://commons.apache.org/proper/commons-dbutils/
 依赖jar包：commons-dbutils.jar
@@ -830,7 +929,7 @@ maxWaitMillis = 5000
 | removeAbandonedTimeout     | 300    | 超过时间限制，回收没有用(废弃)的连接                         |
 | removeAbandoned            | false  | 超过removeAbandonedTimeout时间后，是否进 行没用连接（废弃）的回收 |
 
-* DBCP示例  
+#### DBCP示例  
 [DbcpUtils](day04/src/com/java/www/DbcpUtils.java)  
 [DbcpTest](day04/src/com/java/www/DbcpTest.java)  
 [dbcp.properties配置示例](day04/src/dbcp.properties)  
@@ -874,7 +973,22 @@ https://www.mchange.com/projects/c3p0/#configuration_files
 
 
 ### Druid数据库连接池
+```text
+阿里巴巴数据库事业部出品，为监控而生的数据库连接池
+内置强大的监控功能，监控特性不影响性能。
+功能强大，能防SQL注入，内置Loging能诊断Hack应用行为
 
+https://github.com/alibaba/druid
+文档：https://github.com/alibaba/druid/wiki
+druid jar包下载：http://repo1.maven.org/maven2/com/alibaba/druid/
+```
+
+* [DruidDataSource配置属性列表](https://github.com/alibaba/druid/wiki/DruidDataSource%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8)  
+
+#### Druid示例
+[DruidTest](day04/src/com/java/www/DruidTest.java)  
+[DbcpUtils](day04/src/com/java/www/DbcpUtils.java)  
+[druid.properties 配置](day04/src/druid.properties)  
 
 ## 使用JDBC调用数据库中的存储过程、函数
 ### JDBC调用存储过程

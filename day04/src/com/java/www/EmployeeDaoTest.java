@@ -15,6 +15,7 @@ public class EmployeeDaoTest {
     @Test
     public void getTheFirstRecord() {
         Connection conn = JdbcUtils.getConnection();
+//        Connection conn = DruidUtils.getConnection();
         String sql = "SELECT id, `name`, age, passwd AS `password` FROM employees WHERE id = ?;";
         try {
             Employee e = dao.getTheFirstRecord(conn, sql, 6);
