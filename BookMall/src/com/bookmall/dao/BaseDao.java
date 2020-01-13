@@ -18,6 +18,7 @@ import java.util.List;
  */
 public abstract class BaseDao<T> {
     private QueryRunner queryRunner = new QueryRunner();
+    // 泛型T的类型
     private Class<T> type;
 
     // 构造器
