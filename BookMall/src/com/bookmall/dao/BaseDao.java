@@ -22,7 +22,7 @@ public abstract class BaseDao<T> {
 
     // 构造器
     public BaseDao() {
-        // 获取子类的类型
+        // 获取此类的类型
         Class clazz = this.getClass();
         // 获取父类的类型
         // getGenericSuperclass() 用来获取当前类的父类的类型
