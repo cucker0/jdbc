@@ -32,6 +32,16 @@ public class CommonUtils {
         }
     }
 
+    /**
+     * in (set)  模糊查询
+     */
+    @Test
+    public void queryStudentByIdSet() {
+        String sql = "SELECT FlowID flowID, Type type, IDCard idCard, ExamCard examCard, StudentName studentName, Location location, Grade grade " +
+                "FROM examstudent WHERE FlowID in ? ;";
+        JdbcUtils.get(Student.class, sql, "(1, 2, 4)");
+    }
+
     @Test
     public void insertOneRecord() {
         String sql = "INSERT INTO examstudent (`Type`, IDCard, ExamCard, StudentName, Location, Grade) VALUES (?, ?, ?, ?, ?, ?);";

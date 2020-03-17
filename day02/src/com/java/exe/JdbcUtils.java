@@ -173,7 +173,8 @@ public class JdbcUtils {
             for (int i = 0; i < args.length; ++i) {
                 preparedStatement.setObject(i + 1, args[i]);
             }
-//            System.out.println(((ClientPreparedStatement) preparedStatement).asSql());
+            System.out.println("替换参数后的sql:");
+            System.out.println(((ClientPreparedStatement) preparedStatement).asSql());
             // 3. 获得sql执行结果集
             resultSet = preparedStatement.executeQuery();
 
