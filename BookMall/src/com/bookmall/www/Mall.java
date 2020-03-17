@@ -52,7 +52,7 @@ public class Mall {
             user.setPassword(password);
             user.setEmail(email);
 
-            BigInteger id = userDao.saveUser(conn, user);
+            Integer id = userDao.saveUser(conn, user);
             if (id != null) {
                 System.out.println("用户添加成功");
             }
@@ -83,7 +83,7 @@ public class Mall {
             book.setSales(0);
             book.setStock(stock);
             book.setImgPath(imgPath);
-            BigInteger id = bookDao.saveBook(conn, book);
+            Integer id = bookDao.saveBook(conn, book);
             if (id != null) {
                 System.out.println(id);
                 System.out.println("图书添加成功");

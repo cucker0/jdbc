@@ -26,8 +26,8 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
     }
 
     @Override
-    public BigInteger saveUser(Connection conn, User user) {
-        BigInteger auto_increment_id = null;
+    public Integer saveUser(Connection conn, User user) {
+        Integer auto_increment_id = null;
         String sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?);";
         auto_increment_id = insert(conn, sql, user.getUsername(), user.getPassword(), user.getEmail());
         return auto_increment_id;

@@ -21,8 +21,14 @@ public class CommonUtils {
                 "6\t4\t854524195263214584\t200523164754005\t王小红\t太原\t60";
         String[] sqlRows = sqlText.split("\n");
         for (String sqlRow : sqlRows) {
-            String[] args = sqlRow.split("\t");
-            JdbcUtils.update(sql, args);
+//            String[] args = sqlRow.split("\t");
+            Object[] args = sqlRow.split("\t");
+            JdbcUtils.update(sql, args); // 这里用Object[] 参数，编译时则不会有警告
+            /*
+            Warning:(26, 35) java: 最后一个参数使用了不准确的变量类型的 varargs 方法的非 varargs 调用;
+              对于 varargs 调用, 应使用 java.lang.Object
+              对于非 varargs 调用, 应使用 java.lang.Object[], 这样也可以抑制此警告
+             */
         }
     }
 
@@ -49,6 +55,12 @@ public class CommonUtils {
             String Location = sc.next();
             System.out.println("Grade:");
             int Grade = sc.nextInt();
+//            int Type = 4;
+//            String IDCard = "412824195263214584";
+//            String ExamCard = "200523164754000";
+//            String StudentName = "'张锋";
+//            String Location = ";'郑州";
+//            int Grade = 85;
 
             int row = JdbcUtils.update(sql, Type, IDCard, ExamCard, StudentName, Location, Grade);
             if (row == 1) {

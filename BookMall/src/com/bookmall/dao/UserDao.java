@@ -16,5 +16,5 @@ public interface UserDao {
      */
     boolean checkUsername(Connection conn, User user);
 
-    BigInteger saveUser(Connection conn, User user);
+    Integer saveUser(Connection conn, User user);
 }

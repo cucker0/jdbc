@@ -323,10 +323,39 @@ https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver
     调用 PreparedStatement 对象的 setXxx() 方法来设置这些参数. setXxx() 方法有两个参数，
     第一个参数是要设置的 SQL 语句中的参数的索引(从 1 开始)，第二个是设置的 SQL 语句中的参数的值
     ```
+<span id="asSql"></span>
 * **((ClientPreparedStatement) preparedStatement).asSql()  
-    可查看PreparedStatement设置参数、特殊字符等处理后的sql语句**
+    可查看PreparedStatement设置参数、特殊字符等处理后的sql语句**  
     [示例](../day02/src/com/java/exe/JdbcUtils.java)
-
+    ```java
+    public void insertOneRecord() {
+        String sql = "INSERT INTO examstudent (`Type`, IDCard, ExamCard, StudentName, Location, Grade) VALUES (?, ?, ?, ?, ?, ?);";
+        int Type = 4;
+        String IDCard = "412824195263214584";
+        String ExamCard = "200523164754000";
+        String StudentName = "张锋";
+        String Location = "郑州";
+        int Grade = 85;
+        int row = JdbcUtils.update(sql, Type, IDCard, ExamCard, StudentName, Location, Grade); 
+        //  参数替换后的sql语句
+        // INSERT INTO examstudent (`Type`, IDCard, ExamCard, StudentName, Location, Grade) VALUES (4, '412824195263214584', '200523164754000', '张锋', '郑州', 85);
+    }
+  
+    // 如果一个字段值中含有'等特殊字符的替换
+    public void insertOneRecord() {
+        String sql = "INSERT INTO examstudent (`Type`, IDCard, ExamCard, StudentName, Location, Grade) VALUES (?, ?, ?, ?, ?, ?);";
+        int Type = 4;
+        String IDCard = "412824195263214584";
+        String ExamCard = "200523164754000";
+        String StudentName = "'张锋";
+        String Location = ";'郑州";
+        int Grade = 85;
+        int row = JdbcUtils.update(sql, Type, IDCard, ExamCard, StudentName, Location, Grade); 
+        //  参数替换后的sql语句
+        // INSERT INTO examstudent (`Type`, IDCard, ExamCard, StudentName, Location, Grade) VALUES (4, '412824195263214584', '200523164754000', '''张锋', ';''郑州', 85);
+    }
+    ```
+    
 
 #### PreparedStatement vs Statement
 * 代码的可读性和可维护性。

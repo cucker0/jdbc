@@ -22,7 +22,7 @@ public interface BookDao {
      * @param conn: Connection数据库连接对象
      * @param book: Book对象
      */
-    BigInteger saveBook(Connection conn, Book book);
+    Integer saveBook(Connection conn, Book book);
 
     /**
      * 删除自定ID的book

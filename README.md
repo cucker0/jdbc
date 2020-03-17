@@ -32,8 +32,9 @@ JDBC
     * [访问数据库并操作](md/JDBC.md#访问数据库并操作)
     * [使用Statement操作数据表及其弊端](md/JDBC.md#使用Statement操作数据表及其弊端)
     * [PreparedStatement的使用](md/JDBC.md#PreparedStatement的使用)
-        * [PreparedStatement介绍，如何处理sql语句中的特殊字符。?占位参数原理，如何防注入](md/JDBC.md#PreparedStatement介绍)
-        * [获取?占位符SQL语句替换参数后的SQL语句](day02/src/com/java/exe/JdbcUtils.java)
+        * [PreparedStatement介绍，如何处理sql语句中的特殊字符。?占位参数原理](md/JDBC.md#PreparedStatement介绍)
+        * [获取?占位符SQL语句替换参数后的SQL语句](md/JDBC.md#asSql)
+        * [PreparedStatement是如何防止SQL注入的](md/PreparedStatement.md)
         * [PreparedStatement vs Statement](md/JDBC.md#PreparedStatement-vs-Statement)
         * [java与数据库之间的数据类型转换表](md/JDBC.md#java与数据库之间的数据类型转换表)
     * [使用PreparedStatement实现增、删、改操作](md/JDBC.md#使用PreparedStatement实现增删改操作)
@@ -47,7 +48,7 @@ JDBC
     * [JDBC API小结](md/JDBC.md#JDBC-API小结)
 </details>
 
-[章节练习](../day02/src/com/java/exercise/README.md)
+[章节练习](day02/src/com/java/exercise/README.md)
 
 <details>
 <summary>操作BLOB类型字段</summary>

@@ -1,19 +1,26 @@
 PreparedStatement是如何防止SQL注入的
 ==
 
+## 原理
+```text
+
 主要目的：
 确保字符串变量的最外层有单引号包裹，把特殊字符进行转义，如：'xxxxxxx'，
 数值变量其其它变量则用String.valueOf(Object o) 转换成字符串
 把下列字符进行转换
-'\u0000'  "\\0"
-'\n'  "\\n"
-'\r'  "\\r"
+特殊字符    替换后的字符串    说明
+'\u0000'  "\\0"      
+'\n'      "\\n"
+'\r'      "\\r"
 '\u001a'  "\\Z"
-'"'  "\\""
-'\''  "\\'"
-'\\'  "\\\\"
-'  "''"
+'"'       "\\""
+'\''      "\\'"
+'\\'      "\\\\"
+'         "''"            一个单引号替换为2个单引号
 
+```
+
+## 接口、类之间的关系
 1. PreparedStatement接口
 ```java
 public interface PreparedStatement extends Statement {

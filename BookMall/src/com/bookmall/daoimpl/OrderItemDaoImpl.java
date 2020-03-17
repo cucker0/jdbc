@@ -35,8 +35,8 @@ public class OrderItemDaoImpl extends BaseDao<OrderItem> implements OrderItemDao
     }
 
     @Override
-    public BigInteger saveOrderItem(Connection conn, OrderItem orderItem) {
-        BigInteger auto_increment_id = null;
+    public Integer saveOrderItem(Connection conn, OrderItem orderItem) {
+        Integer auto_increment_id = null;
         String sql = "INSERT  INTO order_items (`count`, `amount`, `title`, `author`, `price`, `img_path`, `order_id`) VALUES (?, ?, ?, ?, ?, ?, ?)";
         auto_increment_id = insert(conn, sql, orderItem.getCount(), orderItem.getAmount(),
                 orderItem.getTitle(), orderItem.getAuthor(), orderItem.getPrice(), orderItem.getImgPath(), orderItem.getOrderId());

@@ -21,8 +21,8 @@ public class BookDaoImpl extends BaseDao<Book> implements BookDao {
     }
 
     @Override
-    public BigInteger saveBook(Connection conn, Book book) {
-        BigInteger auto_increment_id = null;
+    public Integer saveBook(Connection conn, Book book) {
+        Integer auto_increment_id = null;
         String sql = "INSERT INTO books (title, author, price, sales, stock, img_path) VALUES (?, ?, ?, ?, ?, ?);";
         // 调用BaseDao类中的update方法
         auto_increment_id = insert(conn, sql, book.getTitle(), book.getAuthor(), book.getPrice(),
