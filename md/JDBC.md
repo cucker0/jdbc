@@ -302,7 +302,7 @@ https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver
 
 ### PreparedStatement的使用
 
-####  PreparedStatement介绍
+#### PreparedStatement介绍
 * 可以通过调用 Connection 对象的 **preparedStatement(String sql)** 方法获取 PreparedStatement 对象
 
 * **PreparedStatement 接口是 Statement 的子接口，它表示一条预编译过的 SQL 语句，并对特殊字符进行转义，使用StringBuild对象来容纳sql语句的每个字符**
@@ -668,6 +668,8 @@ commons-dbutils 是 Apache 组织提供的一个开源 JDBC工具类库，
     - public static boolean loadDriver(java.lang.String driverClassName)
         >这一方装载并注册JDBC驱动程序，如果成功就返回true。使用该方法，你不需要捕捉这个异常ClassNotFoundException。
 ### QueryRunner类
+QueryRunner类也用到了[PreparedStatement](#PreparedStatement介绍)，?占位符参数替换原理是相同的
+
 - **该类简单化了SQL查询，它与ResultSetHandler组合在一起使用可以完成大部分的数据库操作，能够大大减少编码量。**
 
 - QueryRunner类提供了两个构造器：
