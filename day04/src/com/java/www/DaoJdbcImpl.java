@@ -30,27 +30,27 @@ public class DaoJdbcImpl<T> implements DAO<T> {
 
     // 方法
     @Override
-    public int[] batch(Connection connection, String sql, Object[]... args) throws SQLException {
-        return queryRunner.batch(connection, sql, args);
+    public int[] batch(Connection connection, String sql, Object[][] params) throws SQLException {
+        return queryRunner.batch(connection, sql, params);
     }
 
     @Override
-    public <E> E getForValue(Connection connection, String sql, Object... args) throws SQLException {
-        return queryRunner.query(connection, sql, new ScalarHandler<>(), args);
+    public <E> E getForValue(Connection connection, String sql, Object... params) throws SQLException {
+        return queryRunner.query(connection, sql, new ScalarHandler<>(), params);
     }
 
     @Override
-    public List<T> getForList(Connection connection, String sql, Object... args) throws SQLException {
-        return queryRunner.query(connection, sql, new BeanListHandler<>(type), args);
+    public List<T> getForList(Connection connection, String sql, Object... params) throws SQLException {
+        return queryRunner.query(connection, sql, new BeanListHandler<>(type), params);
     }
 
     @Override
-    public T getTheFirstRecord(Connection connection, String sql, Object... args) throws SQLException {
-        return queryRunner.query(connection, sql, new BeanHandler<>(type), args);
+    public T getTheFirstRecord(Connection connection, String sql, Object... params) throws SQLException {
+        return queryRunner.query(connection, sql, new BeanHandler<>(type), params);
     }
 
     @Override
-    public int update(Connection connection, String sql, Object... args) throws SQLException {
-        return queryRunner.update(connection, sql, args);
+    public int update(Connection connection, String sql, Object... params) throws SQLException {
+        return queryRunner.update(connection, sql, params);
     }
 }
