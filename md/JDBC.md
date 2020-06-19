@@ -251,12 +251,12 @@ https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver
     * 工程的src目录下创建 jdbc.properties 文件，内容如下
     ```text
     # mysql connector 8
-    driverClass = com.mysql.cj.jdbc.Driver
-    jdbcUrl = jdbc:mysql://127.0.0.1:3306/testdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
+    driverClass=com.mysql.cj.jdbc.Driver
+    jdbcUrl=jdbc:mysql://127.0.0.1:3306/testdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
     #characterEncoding：字符集
     #serverTimezone: mysql服务器端的时区，UTC为0时区，东8区：Asia/Shanghai 或GMT%2B8
-    user = root
-    password = py123456
+    user=root
+    password=py123456
     ```
     
 * **[jdbc.properties 与mysql、postgresql、oracle、sqlserver的配置示例](../day01/src/jdbc.properties)**
@@ -833,17 +833,17 @@ Apache Commons DBCP 2.7.0 for JDBC 4.2 on Java 8
 ##DBCP连接池
 #文件放置于src classpath根目录下
 #必填写参数
-driverClassName = com.mysql.cj.jdbc.Driver
-url= jdbc:mysql://127.0.0.1:3306/testdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
-username = root
-password = py123456
+driverClassName=com.mysql.cj.jdbc.Driver
+url=jdbc:mysql://127.0.0.1:3306/testdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8&useSSL=false
+username=root
+password=py123456
 
 #可选参数
-initialSize = 10
-maxTotal = 50
-maxIdle = 10
-minIdle = 2
-maxWaitMillis = 5000
+initialSize=10
+maxTotal=50
+maxIdle=10
+minIdle=2
+maxWaitMillis=5000
 ```
 
 * 配置属性说明
