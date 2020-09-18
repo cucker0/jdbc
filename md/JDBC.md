@@ -305,7 +305,7 @@ https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver
 #### PreparedStatement介绍
 * 可以通过调用 Connection 对象的 **preparedStatement(String sql)** 方法获取 PreparedStatement 对象
 
-* **PreparedStatement 接口是 Statement 的子接口，它表示一条预编译过的 SQL 语句，并对特殊字符进行转义，使用StringBuild对象来容纳sql语句的每个字符**
+* **PreparedStatement 接口是 Statement 的子接口，它表示一条预编译过的 SQL 语句，并对?占位传过来的参数做特殊字符转义，如果?占位符的参数类型为String，则在特殊字符转义后，然后在参数两首尾加一个'，其操作过程中使用StringBuild对象来容纳sql语句的每个字符**
 
     原字符 | 转换后字符串
     :--- |:---  
