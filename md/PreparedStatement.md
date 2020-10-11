@@ -5,7 +5,7 @@ PreparedStatement是如何防止SQL注入的
 ```text
 对传入参数的特殊字符进行转换
 
-主要目的：
+核心思想：
 确保 String型参数 的最外层由单引号包裹，把特殊字符进行转义，如：'xxxxxxx'，
 其它类型的参数 则用String.valueOf(Object o) 转换成字符串
 
