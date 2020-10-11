@@ -318,7 +318,7 @@ https://docs.microsoft.com/zh-cn/sql/connect/jdbc/download-microsoft-jdbc-driver
     `\\` |`\\\\` |
     `'` |`''` |一个单引号替换为2个单引号
     `¥` |`\\¥` |这里会根据你使用的charsetEncoder.encode来决定是否转换，<br>如果所使用的字符集把'¥'转为ByteBuffer后<br>是以'\'开头来表示的(ASCII码对应值为92)，则需要转换，<br>否则不用
-    `₩` |`\\₩` |同用法上面的'¥'
+    `₩` |`\\₩` |用法同上面的'¥'
 
 * PreparedStatement 对象所代表的 SQL 语句中的参数用问号(?)来表示，
     ```text
